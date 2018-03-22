@@ -22,8 +22,8 @@ When making contributions your default workflow should be as follows.
 
 2. Branch from `develop` using the following naming convention (separating your feature and bugfix names with hyphens).
 
-* For features `develop/feature/<MY-FEATURE-NAME>`
-* For bugfixes `develop/bugfix/<MY-BUGFIX-NAME>`
+* For features `feature/<MY-FEATURE-NAME>`
+* For bugfixes `bugfix/<MY-BUGFIX-NAME>`
 
 3. `commit` early and often to your branch and remember to frequently run `git pull origin develop` on your branch so you do not diverge.
 
