@@ -1,0 +1,16 @@
+.dashboardContainer {
+
+}
+
+.header {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: white;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  text-align: left;
+}
+
+.backgroundImage {
+  width: 100%;
+}
