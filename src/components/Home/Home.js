@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
-import cloneDeep from 'lodash';
-import Autocomplete from '../Autocomplete/Autocomplete';
 import RaisedButton from 'material-ui/RaisedButton';
+import cloneDeep from 'lodash';
+import { Link } from 'react-router-dom';
+import Autocomplete from '../Autocomplete/Autocomplete';
+import TopNavigationBar from '../TopNavigationBar/TopNavigationBar';
 
 
 import './Home.css';
@@ -22,7 +24,6 @@ const projectMap = {
     nodeIds: [234, 231, 435, 463, 182],
   },
 };
-
 
 export default class Home extends Component {
   constructor(props) {
@@ -60,16 +61,25 @@ export default class Home extends Component {
         {nodeId}
       </Chip>));
     return (
-      <Paper className="home">
-        <div className="autocomplete">
-          <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
-        </div>
-        <div className="chips">
-          {nodeChips}
-        </div>
-        <RaisedButton label="GO" disabled={chipsIsEmpty} style={{ position: 'absolute', bottom: '15px' }} primary />
-      </Paper>
-
+      <div>
+        <TopNavigationBar />
+        <Paper className="home">
+          <div className="autocomplete">
+            <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
+            <Link to="/dash">
+              <RaisedButton
+                className="searchButton"
+                label="GO"
+                disabled={chipsIsEmpty}
+                primary
+              />
+            </Link>
+          </div>
+          <div className="chips">
+            {nodeChips}
+          </div>
+        </Paper>
+      </div>
     );
   }
 }

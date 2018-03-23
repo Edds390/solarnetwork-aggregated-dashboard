@@ -1,0 +1,11 @@
+.topNavigationBar {
+  height: 80px;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  color: '#00bcd4',
+}
