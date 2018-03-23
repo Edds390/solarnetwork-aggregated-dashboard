@@ -11,9 +11,9 @@ import DashboardPage from '../components/pages/DashboardPage/DashboardPage';
 export default () => (
   <Router>
     <Switch>
-      <Route path="/" component={HomePage} />
-      <Route path="/home" component={HomePage} />
-      <Route path="/dash" component={DashboardPage} />
+      <Route path="/" exact component={HomePage} />
+      <Route path="/home" exact component={HomePage} />
+      <Route path="/dash" exact component={DashboardPage} />
     </Switch>
   </Router>
 );
