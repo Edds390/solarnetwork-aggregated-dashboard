@@ -1,0 +1,28 @@
+.home {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 200px;
+  left: calc(50vw - (70% / 2)); 
+  width: 70%;
+  height: 400px;
+  padding: 40px;
+}
+
+.autocomplete {
+  height: 30px;
+  margin: 15px;
+
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px;
+}
+
+.chip {
+  margin: 15px;
+}
+
