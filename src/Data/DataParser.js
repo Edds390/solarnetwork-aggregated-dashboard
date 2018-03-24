@@ -1,5 +1,4 @@
 import _ from 'lodash';
-
 import nivoData from './nivoData';
 
 const DAYS_IN_QUERY = 5;
@@ -20,6 +19,10 @@ const convertToNivoData = dataSourceMap =>
     "data": dataSourceMap[sourceId],
   }));
 
+  /**
+   * Removes data sources with less observations than expected
+   * @param {*} data parsed JSON data object to clean
+   */
 const cleanData = (data) => {
   const indicesToRemove = [];
   for (let i = 0; i < data.length; i += 1) {
@@ -59,7 +62,6 @@ const parseJsonData = (jsonData) => {
 
     const parsedData = convertToNivoData(dataSourceMap);
     cleanData(parsedData);
-    console.log(parsedData);
     return parsedData;
   }
   return false;
