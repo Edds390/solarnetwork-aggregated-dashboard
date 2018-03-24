@@ -3,59 +3,49 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
 
-const projectMap = [
+const nodeMap = [
     {
          title: 'Node 263',
-         body: 'Min Power: 288 Watts \n Max Power: 465 Watts'
-       },
+         minPower: 'Min Power: 288 Watts',
+         maxPower: 'Max Power: 465 Watts'
+        },
        {
          title: 'Node 5',
-         body: 'Min Power: 288 Watts \n Max Power: 465 Watts'
+         minPower: 'Min Power: 123 Watts',
+         maxPower: 'Max Power: 354 Watts'     
        },
         {
-         
          title: 'Node 135',
-         body: 'Min Power: 288 Watts \n Max Power: 465 Watts'
+         minPower: 'Min Power: 7 Watts',
+         maxPower: 'Max Power: 45 Watts'       
        }
      ] ;
-   
-
-export default class CardExampleExpandable extends React.Component {
+  
+export default class ExpandableCard extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {
-        selectedNodes: new Set(),
+      this.state = {  
       };
     }
 
     render() {
-    
-
-
-        const nodeChips=     projectMap.map(p => <Card >
+        const nodeCards= nodeMap.map(p => 
+        <Card>
             <CardHeader
               title={p.title}
               actAsExpander={true}
               showExpandableButton={true}
             />
             <CardText expandable={true}>
- <p>
-            {p.body} </p>
-      <p>      {p.title} </p>
+              <p>{p.minPower}</p>
+              <p>{p.maxPower}</p>
             </CardText>
-            </Card>)
-
+        </Card>)
 
         return (
-            <div>
-         
-          
-     
-          {nodeChips}
-        </div>
- 
-      
-    
+            <div> 
+              {nodeCards}
+            </div>
         );
-      }
     }
+  }

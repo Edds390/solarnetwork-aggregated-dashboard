@@ -1,7 +1,7 @@
 import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import CardExampleExpandable from '../DataTable/CardExampleExpandable';
+import ExpandableCard from '../DataTable/ExpandableCard';
 
 const styles = {
   customWidth: {
@@ -28,7 +28,7 @@ export default class DropDownNodeMenu extends React.Component {
           autoWidth={false}
         >
         <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
-         <CardExampleExpandable />
+         <ExpandableCard />
         </DropDownMenu>
       </div>
     );
