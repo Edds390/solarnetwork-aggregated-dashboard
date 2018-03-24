@@ -1,3 +1,4 @@
+export default
 {"success":true,
   "data":{
     "totalResults":608,
@@ -5,7 +6,8 @@
     "returnedResultCount":608,
     "results":[
       {"created":"2018-03-19 01:00:00.000Z",
-        "nodeId":182,"sourceId":"DB",
+        "nodeId":182,
+        "sourceId":"DB",
         "localDate":"2018-03-19",
         "localTime":"14:00",
         "watts":10772.7,
