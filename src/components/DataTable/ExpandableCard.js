@@ -10,8 +10,8 @@ export default class ExpandableCard extends React.Component {
     }
 
     render() {
-        const nodeCards= this.props.nodeMap.map(p => 
-        <Card>
+        const nodeCards= this.props.nodeMap.map((p,i) => 
+        <Card key={i}>
             <CardHeader
               title={p.title}
               actAsExpander={true}
