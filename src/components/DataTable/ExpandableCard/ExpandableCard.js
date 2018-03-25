@@ -13,18 +13,19 @@ export default class ExpandableCard extends React.Component {
   (which puts into practice the future intention of obtaining information from other components
   via props). */
   render() {
-    const nodeCards= this.props.nodeMap.map ((p, i) =>
-      (<Card key={i}>
-        <CardHeader
-          title={p.title}
-          actAsExpander={true}
-          showExpandableButton={true}
-        />
-        <CardText expandable>
-          <p>{p.minPower}</p>
-          <p>{p.maxPower}</p>
-        </CardText>
-      </Card>
+    const nodeCards = this.props.nodeMap.map(p =>
+      (
+        <Card>
+          <CardHeader
+            title={p.title}
+            actAsExpander
+            showExpandableButton
+          />
+          <CardText expandable>
+            <p>{p.minPower}</p>
+            <p>{p.maxPower}</p>
+          </CardText>
+        </Card>
       ));
     return (
       <div>
@@ -33,3 +34,4 @@ export default class ExpandableCard extends React.Component {
     );
   }
 }
+

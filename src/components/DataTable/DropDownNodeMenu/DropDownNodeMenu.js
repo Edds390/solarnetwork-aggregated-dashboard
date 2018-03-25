@@ -18,18 +18,18 @@ const nodeMap = [
   {
     title: 'Node 263',
     minPower: 'Min Power: 288 Watts',
-    maxPower: 'Max Power: 465 Watts'
+    maxPower: 'Max Power: 465 Watts',
   },
   {
     title: 'Node 5',
     minPower: 'Min Power: 123 Watts',
-    maxPower: 'Max Power: 354 Watts'
+    maxPower: 'Max Power: 354 Watts',
   },
   {
     title: 'Node 135',
     minPower: 'Min Power: 7 Watts',
-    maxPower: 'Max Power: 45 Watts'
-  }
+    maxPower: 'Max Power: 45 Watts',
+  },
 ];
 
 /* Is a drop down menu consisting of cards (where each card is expandable to reveal more information
