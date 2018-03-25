@@ -1,5 +1,25 @@
 import React from 'react';
 import './Dashboard.css';
+import DropDownNodeMenu from '../DataTable/DropDownNodeMenu';
+
+const nodeMap = [
+  {
+       title: 'Node 263',
+       minPower: 'Min Power: 288 Watts',
+       maxPower: 'Max Power: 465 Watts'
+      },
+     {
+       title: 'Node 5',
+       minPower: 'Min Power: 123 Watts',
+       maxPower: 'Max Power: 354 Watts'     
+     },
+      {
+       title: 'Node 135',
+       minPower: 'Min Power: 7 Watts',
+       maxPower: 'Max Power: 45 Watts'       
+     }
+  
+   ] ;
 
 export default function Dashboard() {
   return (
@@ -13,7 +33,10 @@ export default function Dashboard() {
         SolarNode <br />
         Aggregated <br />
         Dash
+        <DropDownNodeMenu nodeMap={nodeMap}/>
+       
       </div>
+    
     </div>
   );
 }

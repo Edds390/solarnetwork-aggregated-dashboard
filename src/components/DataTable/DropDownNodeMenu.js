@@ -5,7 +5,7 @@ import ExpandableCard from '../DataTable/ExpandableCard';
 
 const styles = {
   customWidth: {
-    width: 300,
+    width: 600,
   },
 };
 
@@ -19,6 +19,8 @@ export default class DropDownNodeMenu extends React.Component {
   handleChange = (event, index, value) => this.setState({value});
 
   render() {
+
+
     return (
       <div>
         <DropDownMenu
@@ -28,7 +30,7 @@ export default class DropDownNodeMenu extends React.Component {
           autoWidth={false}
         >
         <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
-         <ExpandableCard />
+        <ExpandableCard nodeMap={this.props.nodeMap}/>
         </DropDownMenu>
       </div>
     );
