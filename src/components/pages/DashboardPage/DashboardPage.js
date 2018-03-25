@@ -1,8 +1,7 @@
 import React from 'react';
 import TopNavigationBar from '../../TopNavigationBar/TopNavigationBar';
 import MasterChart from '../../MasterChart/MasterChart';
-import DropDownNodeMenu from '../../DataTable/DropDownNodeMenu';
-
+import DropDownNodeMenu from '../../DataTable/DropDownNodeMenu/DropDownNodeMenu';
 import './DashboardPage.css';
 
 export default function DashboardPage() {

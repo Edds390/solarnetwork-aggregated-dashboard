@@ -1,6 +1,5 @@
 import React from 'react';
 import './Dashboard.css';
-import DropDownNodeMenu from '../DataTable/DropDownNodeMenu';
 
 export default function Dashboard() {
   return (
@@ -14,10 +13,7 @@ export default function Dashboard() {
         SolarNode <br />
         Aggregated <br />
         Dash
-        
-       
       </div>
-    
     </div>
   );
 }
