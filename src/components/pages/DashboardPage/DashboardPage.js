@@ -10,7 +10,7 @@ export default class DashboardPage extends React.Component {
     super(props);
     this.state = {
       selectedNodes: this.props.location.state,
-    }
+    };
   }
 
   render() {
