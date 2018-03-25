@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import AutoComplete from 'material-ui/AutoComplete';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /**
  * `AutoComplete` search text can be implemented as a controlled value,
@@ -21,7 +20,6 @@ export default class AutoCompleteExampleControlled extends Component {
   }
 
   handleUpdateInput = (searchText) => {
-    
     this.setState({
       searchText,
     });
@@ -38,19 +36,17 @@ export default class AutoCompleteExampleControlled extends Component {
       suggestionList,
     } = this.props;
     return (
-      <MuiThemeProvider>
-        <AutoComplete
-          hintText="Project..."
-          searchText={this.state.searchText}
-          onNewRequest={this.handleSelect}
-          onUpdateInput={this.handleUpdateInput}
-          dataSource={suggestionList}
-          filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-          openOnFocus
-          fullWidth
-          textFieldStyle={{ textAlign: 'center', color: 'blue' }}
-        />
-      </MuiThemeProvider>
+      <AutoComplete
+        hintText="Project..."
+        searchText={this.state.searchText}
+        onNewRequest={this.handleSelect}
+        onUpdateInput={this.handleUpdateInput}
+        dataSource={suggestionList}
+        filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
+        openOnFocus
+        fullWidth
+        textFieldStyle={{ textAlign: 'center', color: 'blue' }}
+      />
     );
   }
 }
