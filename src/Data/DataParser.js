@@ -39,6 +39,7 @@ const cleanData = (data) => {
  * @param {*} dataValue The graph view we want to see (e.g. Voltage, Power, etc)
  */
 const parseJsonData = (jsonData) => {
+  console.log(jsonData);
   if (jsonData.success) {
     const data = jsonData.data.results;
     const dataSourceMap = {};
@@ -61,7 +62,7 @@ const parseJsonData = (jsonData) => {
     });
 
     const parsedData = convertToNivoData(dataSourceMap);
-    cleanData(parsedData);
+    //cleanData(parsedData);
     return parsedData;
   }
   return false;
