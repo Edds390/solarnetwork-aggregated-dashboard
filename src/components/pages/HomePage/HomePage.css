@@ -4,8 +4,11 @@ html {
 
 body {
   height: 100%;
-  background-color: #9DB4C0;
   margin: 0;
+  background: url('../../../icons/background.png') no-repeat;
+    background-size: auto auto;
+    background-position: 150px 170px;
+  background-color: #fffdf6;
 }
 
 
