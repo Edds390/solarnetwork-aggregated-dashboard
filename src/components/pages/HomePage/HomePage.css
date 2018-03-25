@@ -1,0 +1,15 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #9DB4C0;
+  margin: 0;
+}
+
+
+.App {
+   text-align: center;
+   min-height: 100%;
+}
