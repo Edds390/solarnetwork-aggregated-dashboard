@@ -3,6 +3,7 @@ import Paper from 'material-ui/Paper';
 import Dygraph from 'dygraphs';
 import DataParser from '../../utils/DataParser';
 import nodeInfo from '../../utils/Data/nodeInfo';
+import nodeInfo205 from '../../utils/Data/nodeInfo205';
 
 /**
  * Master chart used as a single view of a data VALUE (voltage, power, etc).
@@ -14,12 +15,12 @@ export default class MasterChart extends Component {
    * You can play around with the Dygraph API for different appearances.
    */
   componentDidMount() {
-    const data = DataParser(nodeInfo, '2018-03-19', '2018-03-24', 'Hour', 'voltage');
+    const dataWrapper = DataParser([nodeInfo, nodeInfo205], '2018-03-19', '2018-03-24', 'Hour', 'voltage');
     const isStacked = true;
-    const labels = ['Time', 'DB', 'Ph1', 'Ph2', 'Ph3', 'Solar', 'Solar_SMA'];
+    const labels = ['Time'].concat(dataWrapper.labels);
     const dygraph = new Dygraph(
       this.chartRef,
-      data,
+      dataWrapper.data,
       {
         width: 480,
         height: 320,

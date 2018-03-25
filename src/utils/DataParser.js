@@ -84,38 +84,57 @@ const dygraphParse = (dataSourceMap, timeSkeleton) => {
 };
 
 /**
+ * Combines the different JSON responses across all nodes in the given array.
+ * Throws error if at least one node has an unsuccessful response.
+ * @param {*} apiResponseArray array of node responses from API call.
+ */
+const combineNodesObservations = (apiResponseArray) => {
+  let combinedNodesResponse = [];
+  apiResponseArray.forEach((apiResponse) => {
+    if (apiResponse.success) {
+      combinedNodesResponse = combinedNodesResponse.concat(apiResponse.data.results);
+    } else {
+      throw new Error('One of the nodes had an unsuccessful response');
+    }
+  });
+  return combinedNodesResponse;
+};
+
+/**
  * Parses the JSON response into Dygraph readable format.
  * The Dygraph format is an ARRAY of ARRAYS.
  * Each x-value (time) is associated with its own array.
  * The array starts with the x-value (time) as the first value
  * followed by the values of the data sources.
  * Each data source has a dedicated index position in the array.
- * @param {*} jsonData JSON response of the API call
+ * @param {*} apiResponseArray array of JSON responses of all nodes from API call
  * @param {*} startDate Start date argument in API call
  * @param {*} endDate End date argument in API call
  * @param {*} aggregate aggregate value (Hour or Day)
  * @param {*} dataValue The graph view we want to see (e.g. Voltage, Power, etc)
+ * @returns JSON wrapper storing parsed data and array of labels. 
  */
-const parseJsonData = (jsonData, startDate, endDate, aggregate, dataValue) => {
+const parseJsonData = (apiResponseArray, startDate, endDate, aggregate, dataValue) => {
   const expectedObservations = calcExpectedObs(startDate, endDate, aggregate);
-  if (jsonData.success) {
-    const data = jsonData.data.results;
-    const dataSourceMap = {};
-    const keyMapWithTimeSkeleton = getKeyMapWithTime(expectedObservations);
-    // dataSourceMap maps the dataSource to a JSON object with time as key and an array of
-    // values (voltage etc) as value.
-    data.forEach((observation) => {
-      if (dataSourceMap[observation.sourceId] === undefined) {
-        dataSourceMap[observation.sourceId] = _.cloneDeep(keyMapWithTimeSkeleton);
-      }
-      dataSourceMap[observation.sourceId][`${observation.localDate}T${observation.localTime}`]
-        = observation[dataValue];
-    });
+  const combinedNodesResponse = combineNodesObservations(apiResponseArray);
+  const dataSourceMap = {};
+  const keyMapWithTimeSkeleton = getKeyMapWithTime(expectedObservations);
+  // dataSourceMap maps the dataSource to a JSON object with time as key and an array of
+  // values (voltage etc) as value.
+  combinedNodesResponse.forEach((observation) => {
+    const label = `Node${observation.nodeId} ${observation.sourceId}`;
+    if (dataSourceMap[label] === undefined) {
+      dataSourceMap[label] = _.cloneDeep(keyMapWithTimeSkeleton);
+    }
+    dataSourceMap[label][`${observation.localDate}T${observation.localTime}`]
+      = observation[dataValue];
+  });
 
-    const parsedData = dygraphParse(dataSourceMap, keyMapWithTimeSkeleton);
-    return parsedData;
-  }
-  throw new Error('Data not successful');
+  const parsedDataWrapper = {
+    data: dygraphParse(dataSourceMap, keyMapWithTimeSkeleton),
+    labels: Object.keys(dataSourceMap),
+  };
+  return parsedDataWrapper;
 };
 
 export default parseJsonData;
