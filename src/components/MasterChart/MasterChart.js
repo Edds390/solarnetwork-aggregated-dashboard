@@ -1,29 +1,51 @@
 import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
-import LineChart from './LineChart';
-// const data = [
-//   {name: new Date(), uv: 4000, pv: 2400, amt: 2400},
-//   {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-//   {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-//   {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-//   {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-//   {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-//   {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-// ];
+import Dygraph from 'dygraphs';
+import DataParser from '../../utils/DataParser';
+import nodeInfo from '../../utils/Data/nodeInfo';
 
-
+/**
+ * Master chart used as a single view of a data VALUE (voltage, power, etc).
+ */
 export default class MasterChart extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedNodes: new Set(),
-    };
+  /**
+   * Dygraph must be added after the component is mounted so that the componet ref can be
+   * used to inject the dygraph.
+   * You can play around with the Dygraph API for different appearances.
+   */
+  componentDidMount() {
+    const data = DataParser(nodeInfo, '2018-03-19', '2018-03-24', 'Hour', 'voltage');
+    const isStacked = true;
+    const labels = ['Time', 'DB', 'Ph1', 'Ph2', 'Ph3', 'Solar', 'Solar_SMA'];
+    const dygraph = new Dygraph(
+      this.chartRef,
+      data,
+      {
+        width: 480,
+        height: 320,
+        labels,
+        stackedGraph: isStacked,
+
+        highlightCircleSize: 2,
+        strokeWidth: 1,
+        strokeBorderWidth: isStacked ? null : 1,
+
+        highlightSeriesOpts: {
+          strokeWidth: 3,
+          strokeBorderWidth: 1,
+          highlightCircleSize: 5,
+        },
+      },
+    );
   }
 
   render() {
+    const chartRef = (el) => {
+      this.chartRef = el;
+    };
     return (
       <Paper className="paper">
-        <LineChart />
+        <div ref={chartRef} />
       </Paper>
 
     );
