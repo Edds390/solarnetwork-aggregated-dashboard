@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "dygraphs": "^2.1.0",
     "lodash": "^4.17.5",
     "material-ui": "^0.20.0",
     "material-ui-icons": "^1.0.0-beta.36",

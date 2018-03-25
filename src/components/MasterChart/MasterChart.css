@@ -1,0 +1,11 @@
+.paper {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 200px;
+  left: calc(50vw - (70% / 2)); 
+  width: 70%;
+  height: 400px;
+  padding: 35px;
+}
