@@ -6,7 +6,7 @@ import nodeInfo from './nodeInfo';
 import nodeInfo205 from './nodeInfo205';
 
 const DataParserSample = () => {
-  const data = DataParser(nodeInfo);
+  const data = DataParser(nodeInfo, '2018-03-19', '2018-03-24', 'Hour', 'voltage');
   return (
     <Paper className="paper">
       <LineChart data={data} />

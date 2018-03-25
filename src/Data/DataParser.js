@@ -1,72 +1,85 @@
 import _ from 'lodash';
 import nivoData from './nivoData';
 
-const DAYS_IN_QUERY = 5;
+let START_DATE;
 const HOURS_IN_DAYS = 24;
-const EXPECTED_OBS = DAYS_IN_QUERY * HOURS_IN_DAYS;
+let EXPECTED_OBS;
+const HOUR_IN_MS = 60 * 60 * 1000;
 
-const generateColor = () => {
-  const hue = Math.floor(Math.random() * 360);
-  const sat = Math.floor(Math.random() * 100);
-  const light = Math.floor(Math.random() * 100);
-  return `hsl(${hue},${sat}%,${light}%)`;
+const calcNumDays = (startDate, endDate) => {
+  START_DATE = new Date(`${startDate}T00:00`);
+  const endDateObj = new Date(endDate);
+  const timeDiff = Math.abs(endDateObj.getTime() - START_DATE.getTime());
+  const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  EXPECTED_OBS = diffDays * HOURS_IN_DAYS;
 };
 
-const convertToNivoData = dataSourceMap =>
-  Object.keys(dataSourceMap).map(sourceId => ({
-    "id": sourceId,
-    "color": generateColor(),
-    "data": dataSourceMap[sourceId],
-  }));
+const formatDate = (date) => {
+  const mm = date.getMonth() + 1; // getMonth() is zero-based
+  const dd = date.getDate();
+  const hh = date.getHours();
 
-  /**
-   * Removes data sources with less observations than expected
-   * @param {*} data parsed JSON data object to clean
-   */
-const cleanData = (data) => {
-  const indicesToRemove = [];
-  for (let i = 0; i < data.length; i += 1) {
-    if (data[i].data.length !== EXPECTED_OBS) {
-      indicesToRemove.push(i);
-    }
+  return [date.getFullYear(),
+    '-',
+    (mm > 9 ? '' : '0') + mm,
+    '-',
+    (dd > 9 ? '' : '0') + dd,
+    'T',
+    (hh > 9 ? '' : '0') + hh,
+    ':00',
+  ].join('');
+};
+
+const getKeyMapWithTime = () => {
+  const timeMap = {};
+  const startDate = _.cloneDeep(START_DATE);
+  for (let i = 0; i < EXPECTED_OBS; i += 1) {
+    const dateString = formatDate(startDate);
+    timeMap[dateString] = null;
+    startDate.setTime(startDate.getTime() + HOUR_IN_MS);
   }
-  _.pullAt(data, indicesToRemove);
+  return timeMap;
+};
+
+const dygraphParse = (dataSourceMap, timeSkeleton) => {
+  const timeMap = {};
+  Object.keys(timeSkeleton).forEach((time) => {
+    timeMap[time] = [new Date(time)];
+  });
+  Object.keys(dataSourceMap).forEach((dataSource) => {
+    Object.keys(timeMap).forEach((time) => {
+      timeMap[time].push(dataSourceMap[dataSource][time]);
+    });
+  });
+  const parsedData = Object.keys(timeMap).map(time => timeMap[time]);
+  return parsedData;
 };
 
 /**
- * Parses the JSON response into NIVO readable format.
+ * Parses the JSON response into Dygraph readable format.
  * @param {*} jsonData JSON response of the API call
  * @param {*} dataValue The graph view we want to see (e.g. Voltage, Power, etc)
  */
-const parseJsonData = (jsonData) => {
+const parseJsonData = (jsonData, startDate, endDate, aggregate, dataValue) => {
+  calcNumDays(startDate, endDate);
   console.log(jsonData);
   if (jsonData.success) {
     const data = jsonData.data.results;
     const dataSourceMap = {};
-    data.forEach((dataPoint) => {
-      let dataArray = dataSourceMap[dataPoint.sourceId];
-      if (dataArray) {
-        dataArray.push({
-          "color": generateColor(),
-          "x": `${dataPoint.localDate} ${dataPoint.localTime}`,
-          "y": dataPoint.voltage,
-        });
-      } else {
-        dataArray = [{
-          "color": generateColor(),
-          "x": `${dataPoint.localDate} ${dataPoint.localTime}`,
-          "y": dataPoint.voltage,
-        }];
-        dataSourceMap[dataPoint.sourceId] = dataArray;
+    const keyMapWithTimeSkeleton = getKeyMapWithTime();
+
+    data.forEach((observation) => {
+      if (dataSourceMap[observation.sourceId] === undefined) {
+        dataSourceMap[observation.sourceId] = _.cloneDeep(keyMapWithTimeSkeleton);
       }
+      dataSourceMap[observation.sourceId][`${observation.localDate}T${observation.localTime}`] = observation[dataValue];
     });
 
-    const parsedData = convertToNivoData(dataSourceMap);
-    //cleanData(parsedData);
+    // convert to dygraph format
+    const parsedData = dygraphParse(dataSourceMap, keyMapWithTimeSkeleton);
     return parsedData;
   }
   return false;
 };
-
 
 export default parseJsonData;
