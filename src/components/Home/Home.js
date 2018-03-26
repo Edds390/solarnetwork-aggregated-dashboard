@@ -66,7 +66,10 @@ export default class Home extends Component {
         <Paper className="home">
           <div className="autocomplete">
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
-            <Link to="/dash">
+            <Link to={{
+              pathname: "/dash",
+              state: selectedNodes
+            }}>
               <RaisedButton
                 className="searchButton"
                 label="GO"
