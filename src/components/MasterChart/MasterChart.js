@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
+import Grid from 'material-ui-next/Grid';
 import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
+import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
 import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
 import './MasterChart.css';
@@ -107,10 +109,17 @@ export default class MasterChart extends Component {
     };
     return (
       <Paper className="paper">
-        <div style={{ display: 'flex', flexDirection: 'horizontal' }}>
-          <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
-          <div ref={legendRef} className="dygraph-legend" />
-        </div>
+        <Grid container spacing={24} style={{ display: 'flex', flexDirection: 'horizontal' }}>
+          <Grid item xs={8}>
+            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+          </Grid>
+          <Grid item xs={3}>
+            <div ref={legendRef} className="dygraph-legend" />
+          </Grid>
+          <Grid item xs={1}>
+            <GraphTutorialPopover />
+          </Grid>
+        </Grid>
       </Paper>
 
     );
