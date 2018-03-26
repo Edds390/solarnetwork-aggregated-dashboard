@@ -7,7 +7,7 @@ import DataParser from '../../utils/DataParser';
 import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
 
-const GRAPH_WIDTH = 480;
+const GRAPH_WIDTH = 450;
 const GRAPH_HEIGHT = 320;
 
 /**
@@ -20,6 +20,15 @@ export default class MasterChart extends Component {
    * You can play around with the Dygraph API for different appearances.
    */
   componentDidMount() {
+    this.renderGraph();
+    console.log("HI");
+  }
+  componentDidUpdate() {
+    this.renderGraph();
+    console.log("HII");
+  }
+
+  renderGraph = () => {
     const {
       data,
       startDate,
@@ -55,7 +64,7 @@ export default class MasterChart extends Component {
         highlightCircleSize: 2,
         strokeWidth: 1,
         strokeBorderWidth: isStacked ? null : 1,
-
+        legend: 'always',
         highlightSeriesOpts: {
           strokeWidth: 3,
           strokeBorderWidth: 1,
@@ -63,6 +72,7 @@ export default class MasterChart extends Component {
         },
       },
     );
+
   }
 
   render() {

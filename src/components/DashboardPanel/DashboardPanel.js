@@ -8,6 +8,8 @@ import nodeInfo205 from '../../utils/Data/nodeInfo205';
 
 import './DashboardPanel.css';
 
+
+
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
@@ -18,15 +20,20 @@ export default class DashboardPanel extends Component {
       aggregate: 'Hour',
       value: 'voltage',
       checklistToggleMap: {
-        'Node182 DB': false,
+        'Node182 DB': true,
         'Node182 Ph1': true,
         'Node182 Ph2': true,
-        'Node182 Ph3': false,
-        'Node182 Solar': false,
+        'Node182 Ph3': true,
+        'Node182 Solar': true,
         'Node182 Solar_SMA': true,
       },
       isStacked: true,
     };
+  }
+
+  handleStackViewChange = (event, isInputChecked) => {
+    console.log(isInputChecked);
+    this.setState({ isStacked: isInputChecked });
   }
 
   render() {
@@ -56,6 +63,7 @@ export default class DashboardPanel extends Component {
         <Toggle
           label="Toggled by default"
           defaultToggled
+          onToggle={(event, isInputChecked) => this.handleStackViewChange(event, isInputChecked)}
         />
       </div>
     );
