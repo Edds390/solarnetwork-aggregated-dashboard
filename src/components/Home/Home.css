@@ -28,3 +28,8 @@
 .chip {
   margin: 15px;
 }
+
+.datepickers {
+  display: flex;
+  margin:15px;
+}

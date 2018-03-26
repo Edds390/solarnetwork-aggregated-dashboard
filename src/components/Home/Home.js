@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
 import cloneDeep from 'lodash';
 import { Link } from 'react-router-dom';
 import Autocomplete from '../Autocomplete/Autocomplete';
@@ -44,6 +45,14 @@ export default class Home extends Component {
     this.setState({ selectedNodes });
   }
 
+  handleStartDateChange = (event, date) => {
+
+  }
+
+  handleEndDateChange = (event, date) => {
+
+  }
+
   render() {
     const { selectedNodes } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
@@ -74,6 +83,10 @@ export default class Home extends Component {
                 primary
               />
             </Link>
+          </div>
+          <div className="datepickers">
+            <DatePicker hintText="Start Date" container="inline" onChange={this.handleStartDateChange} />
+            <DatePicker hintText="End Date" container="inline" onChange={this.handleEndDateChange} />
           </div>
           <div className="chips">
             {nodeChips}
