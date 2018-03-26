@@ -88,30 +88,28 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: new Set(),
+      selectedNodes: [],
     };
   }
 
   handleSearch = (selectedProject) => {
-    const selectedNodes = new Set(projectMap[selectedProject].nodes);
+    const selectedNodes = projectMap[selectedProject].nodes;
     this.setState({ selectedNodes });
   }
 
-  handleRequestDelete = (key) => {
-    const selectedNodes = new Set(cloneDeep(this.state.selectedNodes));
-    selectedNodes.delete(key);
+  handleRequestDelete = (node) => {
+    const selectedNodes = Array.from(cloneDeep(this.state.selectedNodes));
+    const idx = selectedNodes.indexOf(node);
+    selectedNodes[idx].checked = false;
     this.setState({ selectedNodes });
   }
 
   render() {
     const { selectedNodes } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
-    const selectedNodesArray = Array.from(selectedNodes);
-    let chipsIsEmpty = true;
-    if (selectedNodesArray.length > 0) {
-      chipsIsEmpty = false;
-    }
-    const nodeChips = selectedNodesArray.map(node => (
+    const chipsIsEmpty = selectedNodes.length > 0 && true;
+    const nodeChips = selectedNodes.map(node => (
+      node.checked &&
       <Chip
         style={{ margin: 5 }}
         key={node.nodeId}
