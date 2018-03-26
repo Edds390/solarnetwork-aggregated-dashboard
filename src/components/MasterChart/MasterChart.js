@@ -6,6 +6,7 @@ import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
 import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
+import './MasterChart.css';
 
 const GRAPH_WIDTH = 450;
 const GRAPH_HEIGHT = 320;
@@ -58,9 +59,14 @@ export default class MasterChart extends Component {
       {
         width: GRAPH_WIDTH,
         height: GRAPH_HEIGHT,
-        labels,
+        animatedZooms: true,
         stackedGraph: isStacked,
-
+        labels,
+        labelsKMB: true,
+        labelsDiv: this.legendRef,
+        labelsSeparateLines: true,
+        xlabel: 'Date',
+        ylabel: value,
         highlightCircleSize: 2,
         strokeWidth: 1,
         strokeBorderWidth: isStacked ? null : 1,
@@ -72,16 +78,21 @@ export default class MasterChart extends Component {
         },
       },
     );
-
   }
 
   render() {
-    const chartRef = (el) => {
-      this.chartRef = el;
+    const chartRef = (ref) => {
+      this.chartRef = ref;
+    };
+    const legendRef = (ref) => {
+      this.legendRef = ref;
     };
     return (
       <Paper className="paper">
-        <div ref={chartRef} />
+        <div style={{ display: 'flex', flexDirection: 'horizontal' }}>
+          <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+          <div ref={legendRef} className="dygraph-legend" />
+        </div>
       </Paper>
 
     );
