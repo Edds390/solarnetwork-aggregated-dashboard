@@ -4,6 +4,7 @@ import Chip from 'material-ui/Chip';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import cloneDeep from 'lodash';
+import * as moment from 'moment';
 import { Link } from 'react-router-dom';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import TopNavigationBar from '../TopNavigationBar/TopNavigationBar';
@@ -29,8 +30,13 @@ const projectMap = {
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    const dateToday = new Date();
+    const weekAgoDate = new Date();
+    weekAgoDate.setDate(weekAgoDate.getDate() - 7);
     this.state = {
       selectedNodes: new Set(),
+      startDate: weekAgoDate,
+      endDate: dateToday,
     };
   }
 
@@ -46,11 +52,11 @@ export default class Home extends Component {
   }
 
   handleStartDateChange = (event, date) => {
-
+    this.setState({ startDate: date });
   }
 
   handleEndDateChange = (event, date) => {
-
+    this.setState({ endDate: date });
   }
 
   render() {
@@ -85,8 +91,8 @@ export default class Home extends Component {
             </Link>
           </div>
           <div className="datepickers">
-            <DatePicker hintText="Start Date" container="inline" onChange={this.handleStartDateChange} />
-            <DatePicker hintText="End Date" container="inline" onChange={this.handleEndDateChange} />
+            <DatePicker hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
+            <DatePicker hintText="End Date" container="inline" value={this.state.endDate} onChange={this.handleEndDateChange} />
           </div>
           <div className="chips">
             {nodeChips}
