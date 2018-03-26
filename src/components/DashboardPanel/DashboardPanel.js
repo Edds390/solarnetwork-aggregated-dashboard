@@ -5,6 +5,7 @@ import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
+import getNodeUsageData from '../../api/api';
 
 import './DashboardPanel.css';
 
@@ -27,6 +28,16 @@ export default class DashboardPanel extends Component {
       },
       isStacked: true,
     };
+
+    this.pullData = this.pullData.bind(this);
+  }
+
+  pullData() {
+    this.props.selectedNodes.forEach((node) => {
+      getNodeUsageData(node, this.state.startDate, this.state.endDate).then((nodeData) => {
+        this.setState({ dataModel: nodeData.data.results });
+      });
+    });
   }
 
   render() {
@@ -53,6 +64,7 @@ export default class DashboardPanel extends Component {
           checklistToggleMap={checklistToggleMap}
           isStacked={isStacked}
         />
+        <button onClick={this.pullData}>Hi</button>
         <Toggle
           label="Toggled by default"
           defaultToggled

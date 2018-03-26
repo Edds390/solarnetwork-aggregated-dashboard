@@ -29,6 +29,7 @@ export default class MasterChart extends Component {
       checklistToggleMap,
       isStacked,
     } = this.props;
+
     const dataWrapper = DataParser(data, startDate, endDate, aggregate, value);
     const labels = ['Time'].concat(dataWrapper.labels);
     const indicesToRemove = [];
@@ -79,7 +80,7 @@ export default class MasterChart extends Component {
 }
 
 MasterChart.propTypes = {
-  data: PropTypes.arrayOf(), // combined data
+  data: PropTypes.array, // combined data
   startDate: PropTypes.string.isRequired, // Format is yyyy-mm-dd
   endDate: PropTypes.string.isRequired, // same format as bove
   aggregate: PropTypes.string.isRequired, // either Hour or Day
