@@ -15,7 +15,7 @@ export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataModel: nodeInfo.data.results,
+      dataModel: [],
       startDate: '2018-03-19',
       endDate: '2018-03-24',
       aggregate: 'Hour',
@@ -34,12 +34,21 @@ export default class DashboardPanel extends Component {
     this.pullData = this.pullData.bind(this);
   }
 
-  pullData() {
+  componentWillMount() {
+    this.pullData();
+  }
+
+  async pullData() {
+    const promiseList = [];
     this.props.selectedNodes.forEach((node) => {
-      getNodeUsageData(node, this.state.startDate, this.state.endDate).then((nodeData) => {
-        this.setState({ dataModel: nodeData.data.results });
-      });
+      promiseList.push(getNodeUsageData(node, this.state.startDate, this.state.endDate));
     });
+    const resultList = await Promise.all(promiseList);
+    let finalData = [];
+    resultList.forEach((rawData) => {
+      finalData = finalData.concat(rawData.data.results);
+    });
+    this.setState({ dataModel: finalData });
   }
 
   handleStackViewChange = (event, isInputChecked) => {
@@ -71,7 +80,6 @@ export default class DashboardPanel extends Component {
           checklistToggleMap={checklistToggleMap}
           isStacked={isStacked}
         />
-        <button onClick={this.pullData}>Hi</button>
         <Toggle
           label="Toggled by default"
           defaultToggled
