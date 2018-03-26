@@ -17,18 +17,18 @@ to be transferred between the components as props. */
 const nodeMap = [
   {
     title: 'Node 263',
-    minPower: 'Min Power: 288 Watts',
-    maxPower: 'Max Power: 465 Watts',
+    minPower: 288,
+    maxPower: 465,
   },
   {
     title: 'Node 5',
-    minPower: 'Min Power: 123 Watts',
-    maxPower: 'Max Power: 354 Watts',
+    minPower: 123,
+    maxPower: 354,
   },
   {
     title: 'Node 135',
-    minPower: 'Min Power: 7 Watts',
-    maxPower: 'Max Power: 45 Watts',
+    minPower: 7,
+    maxPower: 45,
   },
 ];
 

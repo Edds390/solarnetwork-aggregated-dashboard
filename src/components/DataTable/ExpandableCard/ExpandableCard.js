@@ -24,8 +24,8 @@ export default class ExpandableCard extends React.Component {
             showExpandableButton
           />
           <CardText expandable>
-            <p>{p.minPower}</p>
-            <p>{p.maxPower}</p>
+            <p>Minimum Power: {p.minPower} Watts</p>
+            <p>Maximum Power: {p.maxPower} Watts</p>
           </CardText>
         </Card>
       ));
@@ -40,7 +40,7 @@ export default class ExpandableCard extends React.Component {
 ExpandableCard.propTypes = {
   nodeMap: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
-    minPower: PropTypes.string.isRequired,
-    maxPower: PropTypes.string.isRequired,
+    minPower: PropTypes.number.isRequired,
+    maxPower: PropTypes.number.isRequired,
   }).isRequired).isRequired,
 };
