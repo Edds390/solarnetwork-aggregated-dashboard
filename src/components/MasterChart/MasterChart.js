@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-import Toggle from 'material-ui/Toggle';
 import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
@@ -32,16 +31,6 @@ export default class MasterChart extends Component {
     } = this.props;
     const dataWrapper = DataParser(data, startDate, endDate, aggregate, value);
     const labels = ['Time'].concat(dataWrapper.labels);
-    const checklistToggleMap = {
-      'Node182 DB': false,
-      'Node182 Ph1': true,
-      'Node182 Ph2': true,
-      'Node182 Ph3': false,
-      'Node182 Solar': false,
-      'Node182 Solar_SMA': true,
-    };
-
-    filterData()
     const indicesToRemove = [];
     Object.keys(checklistToggleMap).forEach((nodeDataSourceCode) => {
       if (!checklistToggleMap[nodeDataSourceCode]) {
@@ -83,10 +72,6 @@ export default class MasterChart extends Component {
     return (
       <Paper className="paper">
         <div ref={chartRef} />
-        <Toggle
-          label="Toggled by default"
-          defaultToggled
-        />
       </Paper>
 
     );
