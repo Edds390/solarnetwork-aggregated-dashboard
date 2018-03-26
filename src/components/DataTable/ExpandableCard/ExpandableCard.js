@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import PropTypes from 'prop-types';
 
 /* This component is for an individual card within the drop down menu for node information.
 It is expandable and collapsible depending on what state the user clicks on it. */
@@ -8,6 +9,7 @@ export default class ExpandableCard extends React.Component {
     super(props);
     this.state = {};
   }
+
 
   /* This render method iterates through the node map provided by the DropDownNodeMenu class
   (which puts into practice the future intention of obtaining information from other components
@@ -35,3 +37,10 @@ export default class ExpandableCard extends React.Component {
   }
 }
 
+ExpandableCard.propTypes = {
+  nodeMap: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    minPower: PropTypes.string.isRequired,
+    maxPower: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
+};
