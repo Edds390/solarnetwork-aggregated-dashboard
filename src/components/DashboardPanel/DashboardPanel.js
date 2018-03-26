@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
+import MasterChart from '../MasterChart/MasterChart';
 
 import './DashboardPanel.css';
 
@@ -9,11 +10,11 @@ export default function DashboardPanel(props) {
   return (
     <div className="dashboardPanelWrapper">
       <DashboardLeftBar selectedNodes={selectedNodes} />
-      <div>This is where the graph and table goes</div>
+      <MasterChart />
     </div>
   );
 }
 
 DashboardPanel.propTypes = {
-  selectedNodes: PropTypes.object,
+  selectedNodes: PropTypes.array,
 };

@@ -13,15 +13,74 @@ import './Home.css';
 const projectMap = {
   'University of Auckland': {
     name: 'University of Auckland',
-    nodeIds: [234, 231, 435, 463, 182],
+    nodes: [
+      {
+        nodeId: 234,
+        checked: true,
+      },
+      {
+        nodeId: 231,
+        checked: true,
+      },
+      {
+        nodeId: 435,
+        checked: true,
+      },
+      {
+        nodeId: 463,
+        checked: true,
+      },
+      {
+        nodeId: 182,
+        checked: true,
+      },
+    ],
   },
   AUT: {
     name: 'AUT',
-    nodeIds: [234, 435, 463, 182],
+    nodes: [
+      {
+        nodeId: 234,
+        checked: true,
+      },
+      {
+        nodeId: 435,
+        checked: true,
+      },
+      {
+        nodeId: 463,
+        checked: true,
+      },
+      {
+        nodeId: 182,
+        checked: true,
+      },
+    ],
   },
   MIT: {
     name: 'MIT',
-    nodeIds: [234, 231, 435, 463, 182],
+    nodes: [
+      {
+        nodeId: 234,
+        checked: true,
+      },
+      {
+        nodeId: 231,
+        checked: true,
+      },
+      {
+        nodeId: 435,
+        checked: true,
+      },
+      {
+        nodeId: 463,
+        checked: true,
+      },
+      {
+        nodeId: 182,
+        checked: true,
+      },
+    ],
   },
 };
 
@@ -34,7 +93,7 @@ export default class Home extends Component {
   }
 
   handleSearch = (selectedProject) => {
-    const selectedNodes = new Set(projectMap[selectedProject].nodeIds);
+    const selectedNodes = new Set(projectMap[selectedProject].nodes);
     this.setState({ selectedNodes });
   }
 
@@ -52,13 +111,13 @@ export default class Home extends Component {
     if (selectedNodesArray.length > 0) {
       chipsIsEmpty = false;
     }
-    const nodeChips = selectedNodesArray.map(nodeId => (
+    const nodeChips = selectedNodesArray.map(node => (
       <Chip
         style={{ margin: 5 }}
-        key={nodeId}
-        onRequestDelete={() => this.handleRequestDelete(nodeId)}
+        key={node.nodeId}
+        onRequestDelete={() => this.handleRequestDelete(node)}
       >
-        {nodeId}
+        {node.nodeId}
       </Chip>));
     return (
       <div>
