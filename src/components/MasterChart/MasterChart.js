@@ -22,25 +22,22 @@ export default class MasterChart extends Component {
    */
   componentDidMount() {
     this.renderGraph();
-    console.log("HI");
   }
+  /**
+   * Since Dygraph is injected into the div, it does not re-render.
+   * Therefore, the graph must re-render when new props are passed into the component.
+   */
   componentDidUpdate() {
     this.renderGraph();
-    console.log("HII");
   }
 
-  renderGraph = () => {
-    const {
-      data,
-      startDate,
-      endDate,
-      aggregate,
-      value,
-      checklistToggleMap,
-      isStacked,
-    } = this.props;
-    const dataWrapper = DataParser(data, startDate, endDate, aggregate, value);
-    const labels = ['Time'].concat(dataWrapper.labels);
+  /**
+   * Filters the data based on the checklist provided.
+   * I envision that when everything is plugged in, this
+   * functionality will be moved up to DashboardPanel.
+   */
+  filterData = (dataWrapper, labels) => {
+    const { checklistToggleMap } = this.props;
     const indicesToRemove = [];
     Object.keys(checklistToggleMap).forEach((nodeDataSourceCode) => {
       if (!checklistToggleMap[nodeDataSourceCode]) {
@@ -52,6 +49,27 @@ export default class MasterChart extends Component {
     filteredData.forEach((timeObservations) => {
       _.pullAt(timeObservations, indicesToRemove);
     });
+
+    return filteredData;
+  }
+
+  /**
+   * Helper function used to inject the Dygraph into target div.
+   */
+  renderGraph = () => {
+    const {
+      data,
+      startDate,
+      endDate,
+      aggregate,
+      value,
+      isStacked,
+    } = this.props;
+    // cloneDeep used as placeholder as later the parsed data will be passed in as a prop
+    const dataWrapper = _.cloneDeep(DataParser(data, startDate, endDate, aggregate, value));
+    const labels = ['Time'].concat(dataWrapper.labels);
+
+    const filteredData = this.filterData(dataWrapper, labels);
 
     const dygraph = new Dygraph(
       this.chartRef,
@@ -100,7 +118,7 @@ export default class MasterChart extends Component {
 }
 
 MasterChart.propTypes = {
-  data: PropTypes.arrayOf(), // combined data
+  data: PropTypes.array, // combined data
   startDate: PropTypes.string.isRequired, // Format is yyyy-mm-dd
   endDate: PropTypes.string.isRequired, // same format as bove
   aggregate: PropTypes.string.isRequired, // either Hour or Day
