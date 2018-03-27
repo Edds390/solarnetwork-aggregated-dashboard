@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Toggle from 'material-ui/Toggle';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
-import nodeInfo from '../../utils/Data/nodeInfo';
-import nodeInfo205 from '../../utils/Data/nodeInfo205';
+import getNodeUsageData from '../../api/api';
 
 import './DashboardPanel.css';
-
-
 
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataModel: nodeInfo.data.results,
+      dataModel: [],
       startDate: '2018-03-19',
       endDate: '2018-03-24',
       aggregate: 'Hour',
@@ -28,10 +26,33 @@ export default class DashboardPanel extends Component {
       },
       isStacked: true,
     };
+
+    this.pullData = this.pullData.bind(this);
+  }
+
+  componentWillMount() {
+    this.pullData();
+  }
+
+  /**
+   * Pulls data for all nodes in selectedNodes. Async method, to wait for fetch to finish.
+   */
+  async pullData() {
+    const promiseList = [];
+    const { startDate, endDate } = this.state;
+    this.props.selectedNodes.forEach((node) => {
+      promiseList.push(getNodeUsageData(node, startDate, endDate));
+    });
+    const resultList = await Promise.all(promiseList);
+    // Must return only a single array of data, for dygraph to paint, so concatenate results
+    let finalData = [];
+    resultList.forEach((rawData) => {
+      finalData = finalData.concat(rawData.data.results);
+    });
+    this.setState({ dataModel: finalData });
   }
 
   handleStackViewChange = (isInputChecked) => {
-    console.log(isInputChecked);
     this.setState({ isStacked: isInputChecked });
   }
 
