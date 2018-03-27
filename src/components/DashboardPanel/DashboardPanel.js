@@ -8,13 +8,15 @@ import getNodeUsageData from '../../api/api';
 
 import './DashboardPanel.css';
 
+const DATEFORMAT = 'YYYY-MM-DD';
+
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataModel: [],
-      startDate: moment(this.props.startDate).format('YYYY-MM-DD'),
-      endDate: moment(this.props.endDate).format('YYYY-MM-DD'),
+      startDate: moment(this.props.startDate).format(DATEFORMAT),
+      endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
       value: 'voltage',
       checklistToggleMap: {
