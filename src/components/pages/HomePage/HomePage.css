@@ -4,10 +4,10 @@ html {
 
 body {
   height: 100%;
-  background-color: #9DB4C0;
+  width: 100%;
+  background: #fffdf6;
   margin: 0;
 }
-
 
 .App {
    text-align: center;
