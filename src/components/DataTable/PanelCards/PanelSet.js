@@ -45,10 +45,10 @@ display information associated with their corresponding node */
           View Node Information
         </Button>
         <br />
-        <Panel id="collapsible-panel-example-1" expanded={this.state.open}>
+        <Panel id="collapsible-panel-example-1" expanded={this.state.open} onToggle>
           <Panel.Collapse>
             <Panel.Body>
-              <PanelGroup>{nodeCards}
+              <PanelGroup id="node-panel-group">{nodeCards}
               </PanelGroup>
             </Panel.Body>
           </Panel.Collapse>
