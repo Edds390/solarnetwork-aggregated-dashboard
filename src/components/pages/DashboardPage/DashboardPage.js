@@ -9,15 +9,15 @@ export default class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: Array.from(this.props.location.state),
+      nodes: this.props.location.state.nodes,
     };
   }
-
   render() {
+    const { nodes } = this.state;
     return (
-      <div >
+      <div>
         <TopNavigationBar />
-        <DashboardPanel selectedNodes={this.state.selectedNodes} />
+        <DashboardPanel nodes={nodes} />
       </div>
     );
   }

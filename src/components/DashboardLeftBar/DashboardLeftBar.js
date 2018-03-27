@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+import cloneDeep from 'lodash';
 
 import './DashboardLeftBar.css';
 
@@ -12,20 +12,18 @@ export default class DashboardLeftBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: this.props.selectedNodes,
+      nodes: this.props.nodes,
       open: false,
-      checked: true,
     };
     this.updateCheck = this.updateCheck.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
   }
 
-  updateCheck = () => {
-    this.setState((oldState) => {
-      return {
-        checked: !oldState.checked,
-      };
-    });
+  updateCheck = (node) => {
+    const nodes = Array.from(cloneDeep(this.state.nodes));
+    const idx = nodes.indexOf(node);
+    nodes[idx].checked = !nodes[idx].checked;
+    this.setState({ nodes });
   }
 
  handleToggle = () => {
@@ -40,15 +38,15 @@ export default class DashboardLeftBar extends React.Component {
          onClick={this.handleToggle}
        />
        <Drawer open={this.state.open}>
-         <div>Selected Nodes</div>
+         <div>Select Nodes</div>
          <Divider />
-         {this.state.selectedNodes.map((node, i) => (
+         {this.state.nodes.map((node, i) => (
            <div>
              <Checkbox
-               key={`${Node}_${i + 1}`}
-               label={`Node: ${node}`}
-               checked={this.state.checked}
-               onCheck={this.updateCheck}
+               key={`${node}_${i + 1}`}
+               label={`Node: ${node.nodeId}`}
+               checked={node.checked}
+               onCheck={() => this.updateCheck(node)}
              />
            </div>
            ))
@@ -60,5 +58,5 @@ export default class DashboardLeftBar extends React.Component {
 }
 
 DashboardLeftBar.propTypes = {
-  selectedNodes: PropTypes.array,
+  nodes: PropTypes.array,
 }

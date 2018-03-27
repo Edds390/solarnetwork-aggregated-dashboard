@@ -88,27 +88,29 @@ export default class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: [],
+      nodes: [],
     };
   }
 
   handleSearch = (selectedProject) => {
-    const selectedNodes = projectMap[selectedProject].nodes;
-    this.setState({ selectedNodes });
+    const { nodes } = projectMap[selectedProject];
+    this.setState({ nodes });
   }
 
   handleRequestDelete = (node) => {
-    const selectedNodes = Array.from(cloneDeep(this.state.selectedNodes));
-    const idx = selectedNodes.indexOf(node);
-    selectedNodes[idx].checked = false;
-    this.setState({ selectedNodes });
+    const nodes = Array.from(cloneDeep(this.state.nodes));
+    const idx = nodes.indexOf(node);
+    nodes[idx].checked = false;
+    this.setState({ nodes });
   }
 
+  calculateSelectedNodes = () => this.state.nodes.filter(node => node.checked).length;
+
   render() {
-    const { selectedNodes } = this.state;
+    const { nodes } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
-    const chipsIsEmpty = selectedNodes.length > 0 && true;
-    const nodeChips = selectedNodes.map(node => (
+    const chipsIsEmpty = this.calculateSelectedNodes.bind(this) === 0;
+    const nodeChips = nodes.map(node => (
       node.checked &&
       <Chip
         style={{ margin: 5 }}
@@ -125,7 +127,7 @@ export default class Home extends Component {
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
             <Link to={{
               pathname: "/dash",
-              state: selectedNodes
+              state: { nodes },
             }}>
               <RaisedButton
                 className="searchButton"

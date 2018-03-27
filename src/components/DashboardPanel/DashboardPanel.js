@@ -6,15 +6,15 @@ import MasterChart from '../MasterChart/MasterChart';
 import './DashboardPanel.css';
 
 export default function DashboardPanel(props) {
-  const { selectedNodes } = props;
+  const { nodes } = props;
   return (
     <div className="dashboardPanelWrapper">
-      <DashboardLeftBar selectedNodes={selectedNodes} />
+      <DashboardLeftBar nodes={nodes} />
       <MasterChart />
     </div>
   );
 }
 
 DashboardPanel.propTypes = {
-  selectedNodes: PropTypes.array,
+  nodes: PropTypes.array,
 };
