@@ -40,8 +40,10 @@ export default class DashboardPanel extends Component {
   async pullData() {
     const promiseList = [];
     const { startDate, endDate } = this.state;
-    this.props.selectedNodes.forEach((node) => {
-      promiseList.push(getNodeUsageData(node, startDate, endDate));
+    this.props.nodes.forEach((node) => {
+      if (node.checked) {
+        promiseList.push(getNodeUsageData(node.nodeId, startDate, endDate));
+      }
     });
     const resultList = await Promise.all(promiseList);
     // Must return only a single array of data, for dygraph to paint, so concatenate results
@@ -57,7 +59,7 @@ export default class DashboardPanel extends Component {
   }
 
   render() {
-    const { selectedNodes } = this.props;
+    const { nodes } = this.props;
     const {
       dataModel,
       startDate,
@@ -69,8 +71,7 @@ export default class DashboardPanel extends Component {
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
-        <DashboardLeftBar selectedNodes={selectedNodes} />
-        <div>This is where the graph and table goes</div>
+        <DashboardLeftBar nodes={nodes} checklistToggleMap={checklistToggleMap} />
         <MasterChart
           data={dataModel}
           startDate={startDate}
@@ -87,5 +88,8 @@ export default class DashboardPanel extends Component {
 }
 
 DashboardPanel.propTypes = {
-  selectedNodes: PropTypes.object,
+  nodes: PropTypes.arrayOf(PropTypes.shape({
+    nodeId: PropTypes.number.isRequired,
+    checked: PropTypes.bool.isRequired,
+  })).isRequired,
 };

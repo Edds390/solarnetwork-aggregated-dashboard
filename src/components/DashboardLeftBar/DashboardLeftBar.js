@@ -58,19 +58,19 @@ export default class DashboardLeftBar extends React.Component {
          onRequestChange={() => this.setState({ open })}
        >
          <Divider />
-         {this.state.nodes.map((node, i) => (
+         {this.state.nodes.map(node => (
            <div>
              <Checkbox
-               key={`${node}_${i + 1}`}
+               key={node}
                label={`Node: ${node.nodeId}`}
                checked={node.checked}
                onCheck={() => this.updateCheck(node)}
              />
              <Divider />
              <div className="dataSourceContainer">
-               <Checkbox label="Data source A" />
-               <Checkbox label="Data source B" />
-               <Checkbox label="Data source C" />
+               <Checkbox key={1} label="Data source A" />
+               <Checkbox key={2} label="Data source B" />
+               <Checkbox key={3} label="Data source C" />
              </div>
              <Divider />
            </div>
