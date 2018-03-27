@@ -48,6 +48,7 @@ export default class DropDownNodeMenu extends React.Component {
           onChange={this.handleChange}
           className="custom-width"
           autoWidth={false}
+          maxHeight={150}
         >
           <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
           <ExpandableCard nodeMap={nodeMap} />

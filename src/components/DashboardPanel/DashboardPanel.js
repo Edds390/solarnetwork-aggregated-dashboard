@@ -4,7 +4,7 @@ import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
-
+import PanelSet from '../DataTable/PanelCards/PanelSet';
 import './DashboardPanel.css';
 
 
@@ -47,6 +47,7 @@ export default class DashboardPanel extends Component {
       isStacked,
     } = this.state;
     return (
+      <div>
       <div className="dashboardPanelWrapper">
         <MasterChart
           data={dataModel}
@@ -58,6 +59,10 @@ export default class DashboardPanel extends Component {
           isStacked={isStacked}
           onStackToggle={this.handleStackViewChange}
         />
+        </div>
+        
+        <PanelSet selectedNodes={this.state.selectedNodes} />
+     
       </div>
     );
   }
