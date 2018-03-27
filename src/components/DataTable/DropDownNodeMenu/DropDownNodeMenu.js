@@ -40,8 +40,9 @@ export default class DropDownNodeMenu extends React.Component {
   /* This renders the drop down menu with respect to the individual node cards which are formatted
  as an ExpandableCard component. There is one MenuItem or element as "Choose Node" because there
  isn't a place holder text option. If this is clicked on, it will close the drop down menu */
-  render() {
-    return (
+ render() {
+ 
+  return (
       <div>
         <DropDownMenu
           value={this.state.value}

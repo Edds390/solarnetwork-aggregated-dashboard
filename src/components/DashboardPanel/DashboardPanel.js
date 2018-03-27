@@ -21,10 +21,10 @@ export default class DashboardPanel extends Component {
       checklistToggleMap: {
         'Node182 DB': true,
         'Node182 Ph1': true,
-        'Node182 Ph2': true,
+        'Node182 Ph2': false,
         'Node182 Ph3': true,
         'Node182 Solar': true,
-        'Node182 Solar_SMA': true,
+        'Node182 Solar_SMA': false,
       },
       isStacked: true,
     };
@@ -61,7 +61,7 @@ export default class DashboardPanel extends Component {
         />
         </div>
         
-        <PanelSet selectedNodes={this.state.selectedNodes} />
+        <PanelSet checklistToggleMap={checklistToggleMap} />
      
       </div>
     );

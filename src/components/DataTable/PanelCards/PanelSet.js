@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Panel, PanelGroup, Button } from 'react-bootstrap';
 
@@ -23,30 +24,38 @@ const nodeMap = [
 export default class PanelSet extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: 1 };
+    this.state = { value: 1,
+      selectedNodes: new Set() };
   }
-
-
+    
+  
   render() {
+const { checklistToggleMap } = this.props;
 
-const nodeCards = nodeMap.map((p, i) =>
-    (
-      <Panel eventKey={i} >
-        <Panel.Heading>
-      <Panel.Title >{p.title}</Panel.Title>
-    </Panel.Heading>
-              <Panel.Body >
-              <p>Minimum Power: {p.minPower} Watts.</p>
-            <p>Maximum Power: {p.maxPower} Watts</p>
-    </Panel.Body>
-      </Panel>
-    ));
+console.log(checklistToggleMap);
+const chosenNodes = new Set(this.state.selectedNodes);
+Object.keys(checklistToggleMap).forEach((node) => {
+  if (checklistToggleMap[node]) {
+    chosenNodes.add(node);
+  }
+});
+console.log(chosenNodes);
+const array = Array.from(chosenNodes);
 
-
+const nodeCards = array.map((nodeId,i) => (
+  <Panel eventKey={i} >
+  <Panel.Heading>
+<Panel.Title >{nodeId}</Panel.Title>
+</Panel.Heading>
+        <Panel.Body >
+        <p>Minimum Power: ... Watts.</p>
+      <p>Maximum Power: ... Watts</p>
+</Panel.Body>
+</Panel>));
     return (
 
      <div>
-        <Button onClick={() => this.setState({ open: !this.state.open })}>
+     <Button onClick={() => this.setState({ open: !this.state.open })}>
           View Node Information
         </Button>
         <br />
@@ -63,3 +72,6 @@ const nodeCards = nodeMap.map((p, i) =>
   }
 }
 
+PanelSet.propTypes = {
+  checklistToggleMap: PropTypes.object.isRequired
+};
