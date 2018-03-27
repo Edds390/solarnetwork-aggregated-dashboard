@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui-next/Grid';
+import Toggle from 'material-ui/Toggle';
 import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
@@ -10,7 +11,6 @@ import nodeInfo from '../../utils/Data/nodeInfo';
 import nodeInfo205 from '../../utils/Data/nodeInfo205';
 import './MasterChart.css';
 
-const GRAPH_WIDTH = 450;
 const GRAPH_HEIGHT = 320;
 
 /**
@@ -31,6 +31,11 @@ export default class MasterChart extends Component {
    */
   componentDidUpdate() {
     this.renderGraph();
+  }
+
+  handleStackViewChange = (event, isInputChecked) => {
+    const { onStackToggle } = this.props;
+    onStackToggle(isInputChecked);
   }
 
   /**
@@ -77,7 +82,6 @@ export default class MasterChart extends Component {
       this.chartRef,
       filteredData,
       {
-        width: GRAPH_WIDTH,
         height: GRAPH_HEIGHT,
         animatedZooms: true,
         stackedGraph: isStacked,
@@ -110,13 +114,22 @@ export default class MasterChart extends Component {
     return (
       <Paper className="paper">
         <Grid container spacing={24} style={{ display: 'flex', flexDirection: 'horizontal' }}>
-          <Grid item xs={8}>
+          <Grid item xs={12} sm={8}>
             <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+            <Grid container spacing={24} className="bottomBar">
+              <Grid item xs={5}>
+                <Toggle
+                  label="Stack View"
+                  defaultToggled
+                  onToggle={(event, isInputChecked) => this.handleStackViewChange(event, isInputChecked)}
+                />
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={3}>
             <div ref={legendRef} className="dygraph-legend" />
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={1} style={{ position: 'relative' }}>
             <GraphTutorialPopover />
           </Grid>
         </Grid>
@@ -134,4 +147,5 @@ MasterChart.propTypes = {
   value: PropTypes.string.isRequired, // determines graph view
   checklistToggleMap: PropTypes.object.isRequired, // for filtering data
   isStacked: PropTypes.bool.isRequired,
+  onStackToggle: PropTypes.func.isRequired, // callback function for toggling stack view
 };

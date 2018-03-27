@@ -29,3 +29,10 @@
   font-weight: 550;
 }
 
+.bottomBar {
+  display: flex !important;
+  justify-content: left !important;
+  padding: 15px;
+}
+
+

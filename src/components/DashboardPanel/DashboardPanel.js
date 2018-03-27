@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Toggle from 'material-ui/Toggle';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import nodeInfo from '../../utils/Data/nodeInfo';
@@ -31,7 +30,7 @@ export default class DashboardPanel extends Component {
     };
   }
 
-  handleStackViewChange = (event, isInputChecked) => {
+  handleStackViewChange = (isInputChecked) => {
     console.log(isInputChecked);
     this.setState({ isStacked: isInputChecked });
   }
@@ -59,11 +58,7 @@ export default class DashboardPanel extends Component {
           value={value}
           checklistToggleMap={checklistToggleMap}
           isStacked={isStacked}
-        />
-        <Toggle
-          label="Toggled by default"
-          defaultToggled
-          onToggle={(event, isInputChecked) => this.handleStackViewChange(event, isInputChecked)}
+          onStackToggle={this.handleStackViewChange}
         />
       </div>
     );

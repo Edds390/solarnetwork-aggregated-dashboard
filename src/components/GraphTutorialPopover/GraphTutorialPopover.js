@@ -40,17 +40,21 @@ export default class PopoverExampleAnimation extends React.Component {
         >
           <HelpIcon className="helpIcon" />
         </IconButton>
-        
+
         <Popover
           open={this.state.open}
           anchorEl={this.state.anchorEl}
-          anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-          targetOrigin={{horizontal: 'left', vertical: 'top'}}
+          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          targetOrigin={{ horizontal: 'left', vertical: 'top' }}
           onRequestClose={this.handleRequestClose}
           animation={PopoverAnimationVertical}
         >
-          Drag Horizontal <br />
-          Drag Veritcal
+          <div className="helpToolTip">
+            <span style={{ fontWeight: 'bold' }}>Zoom by Time</span>: Horizontally drag on grid <br />
+            <span style={{ fontWeight: 'bold' }}>Zoom by Value</span>: Vertically drag on grid <br />
+            <span style={{ fontWeight: 'bold' }}>Zoom Out</span>: Double-click on grid
+          </div>
+
         </Popover>
       </div>
     );
