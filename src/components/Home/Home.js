@@ -3,8 +3,8 @@ import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
-import cloneDeep from 'lodash';
 import * as moment from 'moment';
+import cloneDeep from 'lodash';
 import { Link } from 'react-router-dom';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import TopNavigationBar from '../TopNavigationBar/TopNavigationBar';
@@ -30,9 +30,8 @@ const projectMap = {
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    const dateToday = new Date();
-    const weekAgoDate = new Date();
-    weekAgoDate.setDate(weekAgoDate.getDate() - 7);
+    const dateToday = moment().toDate();
+    const weekAgoDate = moment().subtract(7, 'days').toDate();
     this.state = {
       selectedNodes: new Set(),
       startDate: weekAgoDate,
@@ -60,7 +59,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { selectedNodes } = this.state;
+    const { selectedNodes, startDate, endDate } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
     const selectedNodesArray = Array.from(selectedNodes);
     let chipsIsEmpty = true;
@@ -83,7 +82,7 @@ export default class Home extends Component {
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
             <Link to={{
               pathname: "/dash",
-              state: selectedNodes
+              state: { selectedNodes: selectedNodes, startDate: startDate, endDate: endDate  }
             }}>
               <RaisedButton
                 className="searchButton"

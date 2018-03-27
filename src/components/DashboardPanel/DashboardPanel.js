@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
+import * as moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
@@ -12,8 +13,8 @@ export default class DashboardPanel extends Component {
     super(props);
     this.state = {
       dataModel: [],
-      startDate: '2018-03-19',
-      endDate: '2018-03-24',
+      startDate: moment(this.props.startDate).format('YYYY-MM-DD'),
+      endDate: moment(this.props.endDate).format('YYYY-MM-DD'),
       aggregate: 'Hour',
       value: 'voltage',
       checklistToggleMap: {
@@ -88,4 +89,6 @@ export default class DashboardPanel extends Component {
 
 DashboardPanel.propTypes = {
   selectedNodes: PropTypes.object,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object
 };

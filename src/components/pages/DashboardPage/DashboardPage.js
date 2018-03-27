@@ -10,7 +10,9 @@ export default class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: this.props.location.state,
+      selectedNodes: this.props.location.state.selectedNodes,
+      startDate: this.props.location.state.startDate,
+      endDate: this.props.location.state.endDate,
     };
   }
 
@@ -18,7 +20,7 @@ export default class DashboardPage extends React.Component {
     return (
       <div >
         <TopNavigationBar />
-        <DashboardPanel selectedNodes={this.state.selectedNodes} />
+        <DashboardPanel selectedNodes={this.state.selectedNodes} startDate={this.state.startDate} endDate={this.state.endDate} />
         <DropDownNodeMenu />
       </div>
     );
