@@ -131,7 +131,12 @@ export default class MasterChart extends Component {
               </Grid>
             </Col>
             <Col xs={12} md={2}>
-              <div ref={legendRef} className="dygraph-legend" />
+              <Paper>
+                <div className="legend-header">Legend</div>
+                <div className="legend-body">
+                  <div ref={legendRef} className="dygraph-legend" />
+                </div>
+              </Paper>
             </Col>
             <Col xs={1} style={{ position: 'relative' }}>
               <GraphTutorialPopover />

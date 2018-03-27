@@ -31,4 +31,14 @@
   padding: 15px;
 }
 
+.legend-header {
+  height: 28px;
+  background-color: aliceblue;
+}
+
+.legend-body {
+  padding: 12px;
+  overflow: scroll;
+}
+
 

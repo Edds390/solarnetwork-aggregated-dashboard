@@ -4,8 +4,11 @@ import { IconButton } from 'material-ui';
 import HelpIcon from 'material-ui/svg-icons/action/help';
 import './GraphTutorialPopover.css';
 
+/**
+ * Help button popover, used as a means to guide the user on how to
+ * interact with the graph component.
+ */
 export default class PopoverExampleAnimation extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -17,7 +20,7 @@ export default class PopoverExampleAnimation extends React.Component {
   handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
-
+    console.log(event.currentTarget);
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
@@ -35,7 +38,6 @@ export default class PopoverExampleAnimation extends React.Component {
       <div>
         <IconButton
           onClick={this.handleClick}
-          label="Click me"
           className="helpButton"
         >
           <HelpIcon className="helpIcon" />
