@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TopNavigationBar from '../../TopNavigationBar/TopNavigationBar';
 import DashboardPanel from '../../DashboardPanel/DashboardPanel';
+import DropDownNodeMenu from '../../DataTable/DropDownNodeMenu/DropDownNodeMenu';
 
 import './DashboardPage.css';
 
@@ -18,6 +19,7 @@ export default class DashboardPage extends React.Component {
       <div>
         <TopNavigationBar />
         <DashboardPanel nodes={nodes} />
+        <DropDownNodeMenu />
       </div>
     );
   }

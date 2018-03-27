@@ -3,9 +3,36 @@
   display: flex;
   flex-direction: column;
   position: fixed;
-  top: 200px;
+  top: 100px;
   left: calc(50vw - (70% / 2)); 
   width: 70%;
   height: 400px;
   padding: 35px;
 }
+
+.dygraph-xlabel {
+  background-color: transparent !important;
+  font-size: 18px !important;
+  text-align: center;
+}
+
+.dygraph-ylabel {
+  background-color: transparent !important;
+  font-size: 18px !important;
+  text-align: center !important;
+}
+.dygraph-legend {
+  text-align: left !important;
+}
+.highlight {
+  text-decoration: underline !important;
+  font-weight: 550;
+}
+
+.bottomBar {
+  display: flex !important;
+  justify-content: left !important;
+  padding: 15px;
+}
+
+
