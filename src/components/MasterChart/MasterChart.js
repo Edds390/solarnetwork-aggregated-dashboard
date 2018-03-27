@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
-import Grid from 'material-ui-next/Grid';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Toggle from 'material-ui/Toggle';
 import Dygraph from 'dygraphs';
 import _ from 'lodash';
@@ -113,7 +113,34 @@ export default class MasterChart extends Component {
     };
     return (
       <Paper className="paper">
-        <Grid container spacing={24} style={{ display: 'flex', flexDirection: 'horizontal' }}>
+        <Grid style={{ width: '100%' }}>
+          <Row>
+            <Col xs={11} md={8}>
+              <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+              <Grid>
+                <Row className="show-grid">
+                  <Col xs={2}>
+                    <Toggle
+                      label="Stack View"
+                      defaultToggled
+                      onToggle={(event, isInputChecked) =>
+                        this.handleStackViewChange(event, isInputChecked)}
+                    />
+                  </Col>
+                </Row>
+              </Grid>
+            </Col>
+            <Col xs={12} md={3}>
+              <div ref={legendRef} className="dygraph-legend" />
+            </Col>
+            <Col xs={1} style={{ position: 'relative' }}>
+              <GraphTutorialPopover />
+            </Col>
+          </Row>
+        </Grid>
+
+
+        {/* <Grid container spacing={24} style={{ display: 'flex', flexDirection: 'horizontal' }}>
           <Grid item xs={12} sm={8}>
             <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
             <Grid container spacing={24} className="bottomBar">
@@ -132,7 +159,7 @@ export default class MasterChart extends Component {
           <Grid item xs={1} style={{ position: 'relative' }}>
             <GraphTutorialPopover />
           </Grid>
-        </Grid>
+        </Grid> */}
       </Paper>
 
     );
