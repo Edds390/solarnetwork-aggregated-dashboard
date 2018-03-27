@@ -4,13 +4,10 @@ html {
 
 body {
   height: 100%;
-  margin: 0;
-  background: url('../../../icons/background.png') no-repeat;
-    background-size: auto auto;
-    background-position: 150px 170px;
-  background-color: #fffdf6;
+  width: 100%;
+  background: #fffdf6 url('../../../icons/background.png') no-repeat center center;
+  background-size: 2230px auto;
 }
-
 
 .App {
    text-align: center;
