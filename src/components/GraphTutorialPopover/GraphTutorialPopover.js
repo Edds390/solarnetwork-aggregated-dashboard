@@ -20,7 +20,6 @@ export default class PopoverExampleAnimation extends React.Component {
   handleClick = (event) => {
     // This prevents ghost click.
     event.preventDefault();
-    console.log(event.currentTarget);
     this.setState({
       open: true,
       anchorEl: event.currentTarget,
