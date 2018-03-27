@@ -15,7 +15,7 @@ import './Home.css';
 const projectMap = {
   'University of Auckland': {
     name: 'University of Auckland',
-    nodeIds: [234, 231, 435, 463, 182],
+    nodeIds: [205, 149, 135, 165, 182],
   },
   AUT: {
     name: 'AUT',
@@ -81,7 +81,10 @@ export default class Home extends Component {
         <Paper className="home">
           <div className="autocomplete">
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
-            <Link to="/dash">
+            <Link to={{
+              pathname: "/dash",
+              state: selectedNodes
+            }}>
               <RaisedButton
                 className="searchButton"
                 label="GO"

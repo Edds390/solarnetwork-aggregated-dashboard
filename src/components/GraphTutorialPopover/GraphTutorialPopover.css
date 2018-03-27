@@ -1,0 +1,14 @@
+.helpButton {
+  position: relative;
+  right: 5px;
+  
+}
+
+.helpIcon {
+  color: grey !important;
+
+}
+
+.helpToolTip {
+  padding: 20px;
+}
