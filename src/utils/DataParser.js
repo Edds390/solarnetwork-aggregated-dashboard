@@ -88,17 +88,17 @@ const dygraphParse = (dataSourceMap, timeSkeleton) => {
  * Throws error if at least one node has an unsuccessful response.
  * @param {*} apiResponseArray array of node responses from API call.
  */
-const combineNodesObservations = (apiResponseArray) => {
-  let combinedNodesResponse = [];
-  apiResponseArray.forEach((apiResponse) => {
-    if (apiResponse.success) {
-      combinedNodesResponse = combinedNodesResponse.concat(apiResponse.data.results);
-    } else {
-      throw new Error('One of the nodes had an unsuccessful response');
-    }
-  });
-  return combinedNodesResponse;
-};
+// const combineNodesObservations = (apiResponseArray) => {
+//   let combinedNodesResponse = [];
+//   apiResponseArray.forEach((apiResponse) => {
+//     if (apiResponse.success) {
+//       combinedNodesResponse = combinedNodesResponse.concat(apiResponse.data.results);
+//     } else {
+//       throw new Error('One of the nodes had an unsuccessful response');
+//     }
+//   });
+//   return combinedNodesResponse;
+// };
 
 /**
  * Parses the JSON response into Dygraph readable format.
@@ -112,16 +112,15 @@ const combineNodesObservations = (apiResponseArray) => {
  * @param {*} endDate End date argument in API call
  * @param {*} aggregate aggregate value (Hour or Day)
  * @param {*} dataValue The graph view we want to see (e.g. Voltage, Power, etc)
- * @returns JSON wrapper storing parsed data and array of labels. 
+ * @returns JSON wrapper storing parsed data and array of labels.
  */
 const parseJsonData = (apiResponseArray, startDate, endDate, aggregate, dataValue) => {
   const expectedObservations = calcExpectedObs(startDate, endDate, aggregate);
-  const combinedNodesResponse = combineNodesObservations(apiResponseArray);
   const dataSourceMap = {};
   const keyMapWithTimeSkeleton = getKeyMapWithTime(expectedObservations);
   // dataSourceMap maps the dataSource to a JSON object with time as key and an array of
   // values (voltage etc) as value.
-  combinedNodesResponse.forEach((observation) => {
+  apiResponseArray.forEach((observation) => {
     const label = `Node${observation.nodeId} ${observation.sourceId}`;
     if (dataSourceMap[label] === undefined) {
       dataSourceMap[label] = _.cloneDeep(keyMapWithTimeSkeleton);
