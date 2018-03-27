@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import Toggle from 'material-ui/Toggle';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
-import nodeInfo from '../../utils/Data/nodeInfo';
-import nodeInfo205 from '../../utils/Data/nodeInfo205';
 import getNodeUsageData from '../../api/api';
 
 import './DashboardPanel.css';
-
-
 
 export default class DashboardPanel extends Component {
   constructor(props) {
@@ -38,12 +34,16 @@ export default class DashboardPanel extends Component {
     this.pullData();
   }
 
+  /**
+   * Pulls data for all nodes in selectedNodes.
+   */
   async pullData() {
     const promiseList = [];
     this.props.selectedNodes.forEach((node) => {
       promiseList.push(getNodeUsageData(node, this.state.startDate, this.state.endDate));
     });
     const resultList = await Promise.all(promiseList);
+    // Must return only a single array of data, for dygraph to paint
     let finalData = [];
     resultList.forEach((rawData) => {
       finalData = finalData.concat(rawData.data.results);
