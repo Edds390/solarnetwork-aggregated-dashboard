@@ -39,8 +39,9 @@ export default class DashboardPanel extends Component {
    */
   async pullData() {
     const promiseList = [];
+    const { startDate, endDate } = this.state;
     this.props.selectedNodes.forEach((node) => {
-      promiseList.push(getNodeUsageData(node, this.state.startDate, this.state.endDate));
+      promiseList.push(getNodeUsageData(node, startDate, endDate));
     });
     const resultList = await Promise.all(promiseList);
     // Must return only a single array of data, for dygraph to paint, so concatenate results
