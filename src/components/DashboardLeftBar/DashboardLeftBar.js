@@ -1,12 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Drawer from 'material-ui/Drawer';
-import RaisedButton from 'material-ui/RaisedButton';
+import { List } from 'material-ui-icons';
+import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
 import cloneDeep from 'lodash';
 
 import './DashboardLeftBar.css';
+
+const styles = {
+  listIcon: {
+    position: 'absolute',
+    bottom: '30px',
+    left: '30px',
+    zIndex: 1500,
+    backgroundColor: 'coral',
+    borderRadius: '50px',
+  },
+};
 
 export default class DashboardLeftBar extends React.Component {
   constructor(props) {
@@ -31,14 +43,20 @@ export default class DashboardLeftBar extends React.Component {
  }
 
  render() {
+   const { open } = this.state;
    return (
      <div>
-       <RaisedButton
-         label="Toggle Node Selection"
+       <IconButton
          onClick={this.handleToggle}
-       />
-       <Drawer open={this.state.open}>
-         <div>Select Nodes</div>
+         style={styles.listIcon}
+       >
+         <List />
+       </IconButton>
+       <Drawer
+         width={200}
+         open={this.state.open}
+         onRequestChange={() => this.setState({ open })}
+       >
          <Divider />
          {this.state.nodes.map((node, i) => (
            <div>
@@ -48,6 +66,13 @@ export default class DashboardLeftBar extends React.Component {
                checked={node.checked}
                onCheck={() => this.updateCheck(node)}
              />
+             <Divider />
+             <div className="dataSourceContainer">
+               <Checkbox label="Data source A" />
+               <Checkbox label="Data source B" />
+               <Checkbox label="Data source C" />
+             </div>
+             <Divider />
            </div>
            ))
          }
@@ -58,5 +83,8 @@ export default class DashboardLeftBar extends React.Component {
 }
 
 DashboardLeftBar.propTypes = {
-  nodes: PropTypes.array,
-}
+  nodes: PropTypes.arrayOf(PropTypes.shape({
+    nodeId: PropTypes.number.isRequired,
+    checked: PropTypes.bool.isRequired,
+  })).isRequired,
+};
