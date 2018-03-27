@@ -35,7 +35,7 @@ export default class DashboardPanel extends Component {
   }
 
   /**
-   * Pulls data for all nodes in selectedNodes.
+   * Pulls data for all nodes in selectedNodes. Async method, to wait for fetch to finish.
    */
   async pullData() {
     const promiseList = [];
@@ -43,7 +43,7 @@ export default class DashboardPanel extends Component {
       promiseList.push(getNodeUsageData(node, this.state.startDate, this.state.endDate));
     });
     const resultList = await Promise.all(promiseList);
-    // Must return only a single array of data, for dygraph to paint
+    // Must return only a single array of data, for dygraph to paint, so concatenate results
     let finalData = [];
     resultList.forEach((rawData) => {
       finalData = finalData.concat(rawData.data.results);

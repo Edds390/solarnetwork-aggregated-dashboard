@@ -7,8 +7,6 @@ import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
-import nodeInfo from '../../utils/Data/nodeInfo';
-import nodeInfo205 from '../../utils/Data/nodeInfo205';
 import './MasterChart.css';
 
 const GRAPH_HEIGHT = 320;
