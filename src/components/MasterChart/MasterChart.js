@@ -138,28 +138,6 @@ export default class MasterChart extends Component {
             </Col>
           </Row>
         </Grid>
-
-
-        {/* <Grid container spacing={24} style={{ display: 'flex', flexDirection: 'horizontal' }}>
-          <Grid item xs={12} sm={8}>
-            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
-            <Grid container spacing={24} className="bottomBar">
-              <Grid item xs={5}>
-                <Toggle
-                  label="Stack View"
-                  defaultToggled
-                  onToggle={(event, isInputChecked) => this.handleStackViewChange(event, isInputChecked)}
-                />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} sm={3}>
-            <div ref={legendRef} className="dygraph-legend" />
-          </Grid>
-          <Grid item xs={1} style={{ position: 'relative' }}>
-            <GraphTutorialPopover />
-          </Grid>
-        </Grid> */}
       </Paper>
 
     );
