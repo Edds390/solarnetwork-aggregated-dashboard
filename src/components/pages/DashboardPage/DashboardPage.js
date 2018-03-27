@@ -17,10 +17,11 @@ export default class DashboardPage extends React.Component {
   }
 
   render() {
+    const { selectedNodes, startDate, endDate } = this.state;
     return (
       <div >
         <TopNavigationBar />
-        <DashboardPanel selectedNodes={this.state.selectedNodes} startDate={this.state.startDate} endDate={this.state.endDate} />
+        <DashboardPanel selectedNodes={selectedNodes} startDate={startDate} endDate={endDate} />
         <DropDownNodeMenu />
       </div>
     );

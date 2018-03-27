@@ -83,7 +83,7 @@ export default class Home extends Component {
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
             <Link to={{
               pathname: "/dash",
-              state: { selectedNodes: selectedNodes, startDate: startDate, endDate: endDate  }
+              state: { selectedNodes, startDate, endDate }
             }}>
               <RaisedButton
                 className="searchButton"
