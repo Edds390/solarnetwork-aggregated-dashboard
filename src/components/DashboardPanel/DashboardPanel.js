@@ -51,8 +51,7 @@ export default class DashboardPanel extends Component {
     this.setState({ dataModel: finalData });
   }
 
-  handleStackViewChange = (event, isInputChecked) => {
-    console.log(isInputChecked);
+  handleStackViewChange = (isInputChecked) => {
     this.setState({ isStacked: isInputChecked });
   }
 
@@ -79,11 +78,7 @@ export default class DashboardPanel extends Component {
           value={value}
           checklistToggleMap={checklistToggleMap}
           isStacked={isStacked}
-        />
-        <Toggle
-          label="Toggled by default"
-          defaultToggled
-          onToggle={(event, isInputChecked) => this.handleStackViewChange(event, isInputChecked)}
+          onStackToggle={this.handleStackViewChange}
         />
       </div>
     );
