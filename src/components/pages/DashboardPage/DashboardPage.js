@@ -16,7 +16,7 @@ export default class DashboardPage extends React.Component {
   render() {
     const { nodes } = this.state;
     return (
-      <div>
+      <div className="dashboard-page">
         <TopNavigationBar />
         <DashboardPanel nodes={nodes} />
         <DropDownNodeMenu />

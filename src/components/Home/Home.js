@@ -6,6 +6,7 @@ import cloneDeep from 'lodash';
 import { Link } from 'react-router-dom';
 import Autocomplete from '../Autocomplete/Autocomplete';
 import TopNavigationBar from '../TopNavigationBar/TopNavigationBar';
+import background from '../../icons/background.png';
 
 
 import './Home.css';
@@ -142,6 +143,7 @@ export default class Home extends Component {
             {nodeChips}
           </div>
         </Paper>
+        <img class="background" id="background1" src={background}/>
       </div>
     );
   }

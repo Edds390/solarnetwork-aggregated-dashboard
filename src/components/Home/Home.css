@@ -28,3 +28,18 @@
 .chip {
   margin: 15px;
 }
+
+.background {
+  position: fixed;
+  max-height: 70%;
+  z-index: -1;
+  text-align: center;
+  width: 90%;
+  height: 90%;
+}
+
+#background1 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 5%;
+}

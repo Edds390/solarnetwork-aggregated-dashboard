@@ -2,12 +2,8 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  position: fixed;
-  top: 100px;
-  left: calc(50vw - (70% / 2)); 
-  width: 70%;
-  height: 400px;
-  padding: 35px;
+  height: 80%;
+  padding: 30px 0 20px 60px;
 }
 
 .dygraph-xlabel {
@@ -33,6 +29,16 @@
   display: flex !important;
   justify-content: left !important;
   padding: 15px;
+}
+
+.legend-header {
+  height: 28px;
+  background-color: aliceblue;
+}
+
+.legend-body {
+  padding: 12px;
+  overflow: scroll;
 }
 
 
