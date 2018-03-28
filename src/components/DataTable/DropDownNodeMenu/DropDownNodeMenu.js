@@ -3,6 +3,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandableCard from '../ExpandableCard/ExpandableCard';
 import './DropDownNodeMenu.css';
+import Paper from 'material-ui/Paper';
 
 /* Manual input at this stage representing dummy data to be parsed through for each card,
 that represents each node. The intention is to obtain information in the format below and
@@ -42,16 +43,15 @@ export default class DropDownNodeMenu extends React.Component {
  isn't a place holder text option. If this is clicked on, it will close the drop down menu */
   render() {
     return (
-      <div>
-        <DropDownMenu
+      <div className="nodeContainer">
+        <div className="info-title">Nodes</div>
+        <Paper
           value={this.state.value}
           onChange={this.handleChange}
           className="custom-width"
-          autoWidth={false}
-        >
-          <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
+          autoWidth={false}>
           <ExpandableCard nodeMap={nodeMap} />
-        </DropDownMenu>
+        </Paper>
       </div>
     );
   }

@@ -9,9 +9,9 @@
 #value-nav {
   padding-right: 0px;
   margin: 10px;
+  min-height: 600px;
 }
 
 #master-chart {
   height: 100%;
 }
-

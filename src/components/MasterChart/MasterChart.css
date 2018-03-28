@@ -4,8 +4,7 @@
   flex-direction: column;
   height: 80%;
   min-height: 600px;
-  padding: 0px 0px 20px 60px;
-
+  padding: 0px 0px 20px 0px;
 }
 
 #help {
@@ -17,11 +16,12 @@
 }
 
 #legend {
-  min-width: 200px;
-  max-width: 210px;
+  min-width: 150px;
+  max-width: 150px;
   float: right;
   z-index: 1;
   padding: 0px;
+  margin-top: -40px;
 }
 
 .dygraph-xlabel {
@@ -35,7 +35,8 @@
   background-color: transparent !important;
   font-size: 18px !important;
   text-align: center !important;
-  margin-right: 55px;
+  margin-left: 50px;
+  margin-right: 95px;
 }
 .dygraph-legend {
   text-align: left !important;
@@ -46,7 +47,7 @@
   font-weight: 600;
   width: 90%;
   min-height: 600px;
-  margin: 50px 100px 10px 50px;
+  margin: 50px 100px 10px 100px;
 }
 
 .bottomBar {
@@ -56,9 +57,10 @@
 }
 
 .panel-head {
-  background-color: #588897;
+  background-color: #c8d86e;
   color: white;
   width: 100%;
+  max-height: 38px;
 }
 
 .legend-title {
@@ -66,7 +68,7 @@
 }
 
 .legend-header {
-  height: 28px;
+  height: 20px;
   background-color: aliceblue;
   width: 100%;
 }
@@ -88,5 +90,9 @@
 #grid-toggle {
   margin-left: 43%;
   width: 170px;
+}
+
+#dropdown-menu {
+  position: absolute;
 }
 

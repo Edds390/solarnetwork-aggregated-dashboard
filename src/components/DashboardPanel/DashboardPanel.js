@@ -7,8 +7,11 @@ import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
 import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
+import DropDownNodeMenu from '../DataTable/DropDownNodeMenu/DropDownNodeMenu';
 
 import './DashboardPanel.css';
+
+const DATEFORMAT = 'YYYY-MM-DD';
 
 const VALUES = [
   'watts',
@@ -122,6 +125,7 @@ export default class DashboardPanel extends Component {
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
+                <DropDownNodeMenu/>
             </Col>
             <Col xs={10} id="graph-area">
               <MasterChart

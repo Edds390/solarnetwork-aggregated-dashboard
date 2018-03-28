@@ -9,6 +9,8 @@ import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
 import './MasterChart.css';
 import {Panel} from 'react-bootstrap';
+import ListIcon from 'material-ui/svg-icons/action/list'
+import {black} from 'material-ui/styles/colors'
 
 const GRAPH_HEIGHT = 320;
 
@@ -112,7 +114,10 @@ export default class MasterChart extends Component {
       this.legendRef = ref;
     };
     return (
-      <Paper className="paper">
+      <Paper className="paper" zDepth="4">
+        <div id="graphical-info-header" className="info-title">
+          Graphical Information
+        </div>
         <Grid style={{ width: '100%' }}>
           <Row>
             <Col xs={12} md={3} id="legend">
@@ -120,7 +125,7 @@ export default class MasterChart extends Component {
                 <Panel>
                   <Panel.Toggle className="legend-header">
                     <Panel.Heading className="panel-head">
-                      <Panel.Title >Legend</Panel.Title>
+                      <ListIcon color="#588897"/>
                     </Panel.Heading>
                   </Panel.Toggle>
                   <Panel.Collapse>
@@ -130,9 +135,6 @@ export default class MasterChart extends Component {
                   </Panel.Collapse>
                 </Panel>
               </Paper>
-            </Col>
-            <Col xs={1} style={{ position: 'relative'}} id="help">
-              <GraphTutorialPopover />
             </Col>
             <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
             <Grid className="show-grid">
@@ -144,6 +146,9 @@ export default class MasterChart extends Component {
                     onToggle={(event, isInputChecked) =>
                       this.handleStackViewChange(event, isInputChecked)}
                   />
+                </Col>
+                <Col xs={1} style={{ position: 'relative'}} id="help">
+                  <GraphTutorialPopover />
                 </Col>
               </Row>
             </Grid>
