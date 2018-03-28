@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Paper from 'material-ui/Paper';
 import Chip from 'material-ui/Chip';
 import RaisedButton from 'material-ui/RaisedButton';
+import DatePicker from 'material-ui/DatePicker';
+import * as moment from 'moment';
 import cloneDeep from 'lodash';
 import { Link } from 'react-router-dom';
 import Autocomplete from '../Autocomplete/Autocomplete';
@@ -14,111 +16,64 @@ import './Home.css';
 const projectMap = {
   'University of Auckland': {
     name: 'University of Auckland',
-    nodes: [
-      {
-        nodeId: 205,
-        checked: true,
-      },
-      {
-        nodeId: 149,
-        checked: true,
-      },
-      {
-        nodeId: 135,
-        checked: true,
-      },
-      {
-        nodeId: 165,
-        checked: true,
-      },
-      {
-        nodeId: 182,
-        checked: true,
-      },
-    ],
+    nodeIds: [205, 149, 135, 165, 182],
   },
   AUT: {
     name: 'AUT',
-    nodes: [
-      {
-        nodeId: 234,
-        checked: true,
-      },
-      {
-        nodeId: 435,
-        checked: true,
-      },
-      {
-        nodeId: 463,
-        checked: true,
-      },
-      {
-        nodeId: 182,
-        checked: true,
-      },
-    ],
+    nodeIds: [234, 435, 463, 182],
   },
   MIT: {
     name: 'MIT',
-    nodes: [
-      {
-        nodeId: 234,
-        checked: true,
-      },
-      {
-        nodeId: 231,
-        checked: true,
-      },
-      {
-        nodeId: 435,
-        checked: true,
-      },
-      {
-        nodeId: 463,
-        checked: true,
-      },
-      {
-        nodeId: 182,
-        checked: true,
-      },
-    ],
+    nodeIds: [234, 231, 435, 463, 182],
   },
 };
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
+    const dateToday = moment().toDate();
+    const weekAgoDate = moment().subtract(7, 'days').toDate();
     this.state = {
-      nodes: [],
+      selectedNodes: new Set(),
+      startDate: weekAgoDate,
+      endDate: dateToday,
     };
   }
 
   handleSearch = (selectedProject) => {
-    const { nodes } = projectMap[selectedProject];
-    this.setState({ nodes });
+    const selectedNodes = new Set(projectMap[selectedProject].nodeIds);
+    this.setState({ selectedNodes });
   }
 
-  handleRequestDelete = (node) => {
-    const nodes = Array.from(cloneDeep(this.state.nodes));
-    const idx = nodes.indexOf(node);
-    nodes[idx].checked = false;
-    this.setState({ nodes });
+  handleRequestDelete = (key) => {
+    const selectedNodes = new Set(cloneDeep(this.state.selectedNodes));
+    selectedNodes.delete(key);
+    this.setState({ selectedNodes });
   }
 
-  calculateSelectedNodes = () => this.state.nodes.filter(node => node.checked).length;
+  handleStartDateChange = (event, date) => {
+    this.setState({ startDate: date });
+  }
+
+  handleEndDateChange = (event, date) => {
+    this.setState({ endDate: date });
+  }
 
   render() {
-    const { nodes } = this.state;
+    const { selectedNodes, startDate, endDate } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
-    const chipsIsEmpty = this.calculateSelectedNodes.bind(this) === 0;
-    const nodeChips = nodes.map(node => (
-      node.checked &&
+    const selectedNodesArray = Array.from(selectedNodes);
+    let chipsIsEmpty = true;
+    if (selectedNodesArray.length > 0) {
+      chipsIsEmpty = false;
+    }
+    const nodeChips = selectedNodesArray.map(nodeId => (
       <Chip
         style={{ margin: 5 }}
-        key={node.nodeId}
-        onRequestDelete={() => this.handleRequestDelete(node)}
+        key={nodeId}
+        onRequestDelete={() => this.handleRequestDelete(nodeId)}
       >
-        {node.nodeId}
+        {nodeId}
       </Chip>));
     return (
       <div>
@@ -127,10 +82,9 @@ export default class Home extends Component {
           <div className="autocomplete">
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
             <Link to={{
-              pathname: '/dash',
-              state: { nodes },
-            }}
-            >
+              pathname: "/dash",
+              state: { selectedNodes, startDate, endDate }
+            }}>
               <RaisedButton
                 className="searchButton"
                 label="GO"
@@ -138,6 +92,10 @@ export default class Home extends Component {
                 primary
               />
             </Link>
+          </div>
+          <div className="datepickerContainer">
+            <DatePicker className="datepicker" hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
+            <DatePicker className="datepicker" hintText="End Date" container="inline" value={this.state.endDate} onChange={this.handleEndDateChange} />
           </div>
           <div className="chips">
             {nodeChips}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import Toggle from 'material-ui/Toggle';
+import moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
@@ -8,13 +10,15 @@ import getNodeUsageData from '../../api/api';
 
 import './DashboardPanel.css';
 
+const DATEFORMAT = 'YYYY-MM-DD';
+
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataModel: [],
-      startDate: '2018-03-19',
-      endDate: '2018-03-24',
+      startDate: moment(this.props.startDate).format(DATEFORMAT),
+      endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
       value: 'voltage',
       checklistToggleMap: {
@@ -42,10 +46,8 @@ export default class DashboardPanel extends Component {
   async pullData() {
     const promiseList = [];
     const { startDate, endDate } = this.state;
-    this.props.nodes.forEach((node) => {
-      if (node.checked) {
-        promiseList.push(getNodeUsageData(node.nodeId, startDate, endDate));
-      }
+    this.props.selectedNodes.forEach((node) => {
+      promiseList.push(getNodeUsageData(node, startDate, endDate));
     });
     const resultList = await Promise.all(promiseList);
     // Must return only a single array of data, for dygraph to paint, so concatenate results
@@ -78,7 +80,7 @@ export default class DashboardPanel extends Component {
 
 
   render() {
-    const { nodes } = this.props;
+    const { selectedNodes } = this.props;
     const {
       dataModel,
       startDate,
@@ -91,7 +93,7 @@ export default class DashboardPanel extends Component {
     return (
       <div className="dashboardPanelWrapper">
         <DashboardLeftBar
-          nodes={nodes}
+          nodes={selectedNodes}
           checklistToggleMap={checklistToggleMap}
           onCheckboxCheck={this.handleCheckboxCheck}
           onCheckboxBulkCheck={this.handleCheckboxBulkCheck}
@@ -112,8 +114,7 @@ export default class DashboardPanel extends Component {
 }
 
 DashboardPanel.propTypes = {
-  nodes: PropTypes.arrayOf(PropTypes.shape({
-    nodeId: PropTypes.number.isRequired,
-    checked: PropTypes.bool.isRequired,
-  })).isRequired,
+  selectedNodes: PropTypes.object,
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date)
 };
