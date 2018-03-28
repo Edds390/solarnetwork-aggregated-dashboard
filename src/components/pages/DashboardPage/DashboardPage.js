@@ -11,15 +11,18 @@ export default class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedNodes: this.props.location.state,
+      selectedNodes: this.props.location.state.selectedNodes,
+      startDate: this.props.location.state.startDate,
+      endDate: this.props.location.state.endDate,
     };
   }
 
   render() {
+    const { selectedNodes, startDate, endDate } = this.state;
     return (
       <div className="dashboard-page">
         <TopNavigationBar />
-        <DashboardPanel selectedNodes={this.state.selectedNodes} />
+        <DashboardPanel selectedNodes={selectedNodes} startDate={startDate} endDate={endDate} />
         <DropDownNodeMenu />
       </div>
     );

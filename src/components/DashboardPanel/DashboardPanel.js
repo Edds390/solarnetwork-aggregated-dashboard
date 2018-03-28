@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Toggle from 'material-ui/Toggle';
+import moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
@@ -44,14 +45,15 @@ const VALUES = [
   'wattHoursReverse',
   'phase',
 ];
+const DATEFORMAT = 'YYYY-MM-DD';
 
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataModel: [],
-      startDate: '2018-03-19',
-      endDate: '2018-03-24',
+      startDate: moment(this.props.startDate).format(DATEFORMAT),
+      endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
       values: VALUES,
       value: 'voltage',
@@ -143,4 +145,6 @@ export default class DashboardPanel extends Component {
 
 DashboardPanel.propTypes = {
   selectedNodes: PropTypes.object,
+  startDate: PropTypes.instanceOf(Date),
+  endDate: PropTypes.instanceOf(Date)
 };
