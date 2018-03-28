@@ -69,8 +69,6 @@ export default class DashboardPanel extends Component {
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
-        <DashboardLeftBar selectedNodes={selectedNodes} />
-        <div>This is where the graph and table goes</div>
         <MasterChart
           data={dataModel}
           startDate={startDate}
