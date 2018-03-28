@@ -16,19 +16,19 @@ const projectMap = {
     name: 'University of Auckland',
     nodes: [
       {
-        nodeId: 234,
+        nodeId: 205,
         checked: true,
       },
       {
-        nodeId: 231,
+        nodeId: 149,
         checked: true,
       },
       {
-        nodeId: 435,
+        nodeId: 135,
         checked: true,
       },
       {
-        nodeId: 463,
+        nodeId: 165,
         checked: true,
       },
       {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
+
 
 import './DashboardPanel.css';
 
@@ -22,6 +24,7 @@ export default class DashboardPanel extends Component {
         'Node182 Ph3': true,
         'Node182 Solar': true,
         'Node182 Solar_SMA': true,
+        'Node234 Main': true,
       },
       isStacked: true,
     };
@@ -57,6 +60,23 @@ export default class DashboardPanel extends Component {
     this.setState({ isStacked: isInputChecked });
   }
 
+  handleCheckboxCheck = (isInputChecked, nodeDsString) => {
+    const checklistToggleMap = _.cloneDeep(this.state.checklistToggleMap);
+    checklistToggleMap[nodeDsString] = isInputChecked;
+    this.setState({ checklistToggleMap });
+  }
+
+  handleCheckboxBulkCheck = (isInputChecked, nodeString) => {
+    const checklistToggleMap = _.cloneDeep(this.state.checklistToggleMap);
+    Object.keys(checklistToggleMap).forEach((nodeIdDs) => {
+      if (nodeString === nodeIdDs.substr(0, nodeIdDs.indexOf(' '))) {
+        checklistToggleMap[nodeIdDs] = isInputChecked;
+      }
+    });
+    this.setState({ checklistToggleMap });
+  }
+
+
   render() {
     const { nodes } = this.props;
     const {
@@ -70,7 +90,12 @@ export default class DashboardPanel extends Component {
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
-        <DashboardLeftBar nodes={nodes} checklistToggleMap={checklistToggleMap} />
+        <DashboardLeftBar
+          nodes={nodes}
+          checklistToggleMap={checklistToggleMap}
+          onCheckboxCheck={this.handleCheckboxCheck}
+          onCheckboxBulkCheck={this.handleCheckboxBulkCheck}
+        />
         <MasterChart
           data={dataModel}
           startDate={startDate}

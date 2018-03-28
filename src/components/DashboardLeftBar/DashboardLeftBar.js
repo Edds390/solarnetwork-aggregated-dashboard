@@ -23,63 +23,120 @@ const styles = {
 export default class DashboardLeftBar extends React.Component {
   constructor(props) {
     super(props);
+    const { checklistToggleMap } = this.props;
+    const nodeToDsMap = {};
+    Object.keys(checklistToggleMap).forEach((checkListItemLabel) => {
+      const nodeId = checkListItemLabel.substr(0, checkListItemLabel.indexOf(' '));
+      if (nodeToDsMap[nodeId] === undefined) {
+        nodeToDsMap[nodeId] = [];
+      }
+      nodeToDsMap[nodeId].push(checkListItemLabel.substr(checkListItemLabel.indexOf(' ') + 1));
+    });
+
     this.state = {
       nodes: this.props.nodes,
       open: false,
+      checklistRenderMap: nodeToDsMap,
     };
-    this.updateCheck = this.updateCheck.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
   }
 
-  updateCheck = (node) => {
-    const nodes = Array.from(cloneDeep(this.state.nodes));
-    const idx = nodes.indexOf(node);
-    nodes[idx].checked = !nodes[idx].checked;
-    this.setState({ nodes });
+  /**
+   * Calls the callback function of DashboardPanel to update the
+   * state of those node-datasource combination's toggle state
+   * based on whether the checked node's nodeID appears in the
+   * combination.
+   */
+  updateCheckNode = (isInputChecked, nodeString) => {
+    const { onCheckboxBulkCheck } = this.props;
+    onCheckboxBulkCheck(isInputChecked, nodeString);
   }
 
- handleToggle = () => {
-   this.setState({ open: !this.state.open });
- }
+  /**
+   * Calls the callback function to update the single
+   * node-datasource combination associated with the check.
+   */
+  updateCheckNodeDS = (isInputChecked, nodeDsString) => {
+    const { onCheckboxCheck } = this.props;
+    onCheckboxCheck(isInputChecked, nodeDsString);
+  }
 
- render() {
-   const { open } = this.state;
-   return (
-     <div>
-       <IconButton
-         onClick={this.handleToggle}
-         style={styles.listIcon}
-       >
-         <List />
-       </IconButton>
-       <Drawer
-         width={200}
-         open={this.state.open}
-         onRequestChange={() => this.setState({ open })}
-       >
-         <Divider />
-         {this.state.nodes.map(node => (
-           <div>
-             <Checkbox
-               key={node}
-               label={`Node: ${node.nodeId}`}
-               checked={node.checked}
-               onCheck={() => this.updateCheck(node)}
-             />
-             <Divider />
-             <div className="dataSourceContainer">
-               <Checkbox key={1} label="Data source A" />
-               <Checkbox key={2} label="Data source B" />
-               <Checkbox key={3} label="Data source C" />
-             </div>
-             <Divider />
-           </div>
-           ))
-         }
-       </Drawer>
-     </div>
-   );
- }
+  /**
+   * Called for opening or closing the left bar drawer.
+   */
+  handleToggle = () => {
+    this.setState({ open: !this.state.open });
+  }
+
+  /**
+   * Check if the nodeID checkbox instance should be checked
+   * based on the state of the map.
+   */
+  checkNodeIdIsChecked = (nodeString) => {
+    const { checklistToggleMap } = this.props;
+    let isChecked = false;
+    Object.keys(checklistToggleMap).forEach((nodeIdDs) => {
+      if (nodeString === nodeIdDs.substr(0, nodeIdDs.indexOf(' '))) {
+        if (checklistToggleMap[nodeIdDs]) {
+          isChecked = true;
+        }
+      }
+    });
+    return isChecked;
+  }
+
+  /**
+   * Check if the nodeID-Datasource checkbox instance should be checked
+   * based on the state of the map.
+   */
+  checkNodeDSIsChecked = (nodeDSString) => {
+    const { checklistToggleMap } = this.props;
+    return checklistToggleMap[nodeDSString];
+  }
+
+  render() {
+    const { checklistToggleMap } = this.props;
+    const { open, checklistRenderMap } = this.state;
+    return (
+      <div>
+        <IconButton
+          onClick={this.handleToggle}
+          style={styles.listIcon}
+        >
+          <List />
+        </IconButton>
+        <Drawer
+          width={200}
+          open={this.state.open}
+          onRequestChange={() => this.setState({ open })}
+        >
+          <Divider />
+          <div>
+            {
+                Object.keys(checklistRenderMap).map(nodeString => (
+                  <div>
+                    <Checkbox
+                      key={nodeString}
+                      label={nodeString}
+                      checked={this.checkNodeIdIsChecked(nodeString)}
+                      onCheck={(event, isInputChecked) => this.updateCheckNode(isInputChecked, nodeString)}
+                    />
+                    <Divider />;
+                    {checklistRenderMap[nodeString].map(dataSource => (
+                      <Checkbox
+                        key={`${nodeString} ${dataSource}`}
+                        label={`${nodeString} ${dataSource}`}
+                        checked={this.checkNodeDSIsChecked(`${nodeString} ${dataSource}`)}
+                        onCheck={(event, isInputChecked) => this.updateCheckNodeDS(isInputChecked, `${nodeString} ${dataSource}`)}
+                      />))};
+                  </div>
+                  ))
+              }
+          </div>
+
+        </Drawer>
+      </div>
+    );
+  }
 }
 
 DashboardLeftBar.propTypes = {
@@ -87,4 +144,7 @@ DashboardLeftBar.propTypes = {
     nodeId: PropTypes.number.isRequired,
     checked: PropTypes.bool.isRequired,
   })).isRequired,
+  checklistToggleMap: PropTypes.object.isRequired,
+  onCheckboxCheck: PropTypes.func.isRequired,
+  onCheckboxBulkCheck: PropTypes.func.isRequired,
 };
