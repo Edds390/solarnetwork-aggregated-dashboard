@@ -1,0 +1,9 @@
+.valueBar {
+  background-color: aliceblue;
+}
+
+.valueContainer {
+  height: 400px;
+  width: 250px;
+  overflow: scroll !important;
+}
