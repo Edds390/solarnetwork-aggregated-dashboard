@@ -2,8 +2,8 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandableCard from '../ExpandableCard/ExpandableCard';
-import './DropDownNodeMenu.css';
 import Paper from 'material-ui/Paper';
+import './DropDownNodeMenu.css';
 
 /* Manual input at this stage representing dummy data to be parsed through for each card,
 that represents each node. The intention is to obtain information in the format below and

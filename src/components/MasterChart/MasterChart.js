@@ -7,10 +7,10 @@ import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
-import './MasterChart.css';
 import {Panel} from 'react-bootstrap';
 import ListIcon from 'material-ui/svg-icons/action/list'
 import {black} from 'material-ui/styles/colors'
+import './MasterChart.css';
 
 const GRAPH_HEIGHT = 320;
 
