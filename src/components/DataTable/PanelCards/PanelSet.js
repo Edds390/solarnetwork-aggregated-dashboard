@@ -27,8 +27,8 @@ display information associated with their corresponding node */
       }
     });
     /* At this stage, using manual input data from an external file */
-    //    const data2 = require('./Times.json');
-    const nodeTimeDataValues = require('./ShorterTimes.json');
+    const nodeTimeDataValues = require('./Times.json');
+//    const nodeTimeDataValues = require('./ShorterTimes.json');
     const chosenNodeArray = Array.from(chosenNodes);
     const nodeArrayElements = new Array(chosenNodeArray.length);
 
@@ -44,14 +44,15 @@ display information associated with their corresponding node */
     /* Initialising a sum array - accumulating the sum of values corresponding to each selected node. */
     const sumArray = new Array(nodeArrayElements.length).fill(0);
 
-    /* Iterating through the dataset and calculating values for each selected node */ 
+    /* Iterating through the dataset and calculating values for each selected node */
     for (let i = 0; i < nodeTimeDataValues.data.length; i++) {
       for (let j = 0; j < nodeArrayElements.length; j++) {
         const timeRow = nodeTimeDataValues.data[i];
         const timeRowIndex = nodeArrayElements[j];
         const value = timeRow[timeRowIndex];
-
-        sumArray[j] += value;
+        if (value != null) {
+          sumArray[j] += value;
+        }
       }
     }
 
@@ -61,7 +62,7 @@ display information associated with their corresponding node */
           <Panel.Title >{nodeId}</Panel.Title>
         </Panel.Heading>
         <Panel.Body >
-          <p>Sum is {sumArray[i]}</p>
+          <p>Sum is {sumArray[i].toFixed(2)}</p>
           <p>{data.nodeId}</p>
         </Panel.Body>
       </Panel>));
