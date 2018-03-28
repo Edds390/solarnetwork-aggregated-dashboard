@@ -18,6 +18,7 @@ this functionality filters through the nodes and selects the one that are true
 display information associated with their corresponding node */
   render() {
     const { checklistToggleMap } = this.props;
+    const { data } = this.props;
     const chosenNodes = new Set(this.state.selectedNodes);
 
     Object.keys(checklistToggleMap).forEach((node) => {
@@ -25,8 +26,37 @@ display information associated with their corresponding node */
         chosenNodes.add(node);
       }
     });
+//    const data2 = require('./Times.json');
+const data2 = require('./ShorterTimes.json');
+    
+const array = Array.from(chosenNodes);
+    const arr = new Array(array.length);
 
-    const array = Array.from(chosenNodes);
+
+    for (let i = 0; i < data2.labels.length; i++) {
+      let label = data2.labels[i];
+      if (chosenNodes.has(label)) {
+        arr[array.indexOf(label)] = i;
+      }
+    }
+console.log("Array is " + arr);   //Are the indices of the respective nodes.
+
+const sumArray = new Array(arr.length).fill(0);
+
+for(let i = 0; i < data2.data.length; i++){
+  for (let j = 0; j < arr.length; j++){
+    const timeRow = data2.data[i]; 
+    const timeRowIndex = arr[j];
+     const value = timeRow[timeRowIndex];
+      
+      sumArray[j] = sumArray[j] + value;
+  }
+}
+
+for(let i = 0; i < sumArray.length; i++){
+  console.log(sumArray[i]);
+}
+
 
     const nodeCards = array.map((nodeId, i) => (
       <Panel eventKey={i} >
@@ -34,8 +64,8 @@ display information associated with their corresponding node */
           <Panel.Title >{nodeId}</Panel.Title>
         </Panel.Heading>
         <Panel.Body >
-          <p>Minimum Power: ... Watts.</p>
-          <p>Maximum Power: ... Watts</p>
+          <p>Sum is {sumArray[i]}</p>
+          <p>{data.nodeId}</p>
         </Panel.Body>
       </Panel>));
     return (
@@ -60,4 +90,5 @@ display information associated with their corresponding node */
 
 PanelSet.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired,
+  data: PropTypes.array,
 };

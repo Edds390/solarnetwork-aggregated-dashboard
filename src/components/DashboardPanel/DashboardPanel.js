@@ -82,7 +82,7 @@ export default class DashboardPanel extends Component {
         />
         </div>
         
-        <PanelSet checklistToggleMap={checklistToggleMap} />
+        <PanelSet checklistToggleMap={checklistToggleMap} data={dataModel} />
      
       </div>
     );

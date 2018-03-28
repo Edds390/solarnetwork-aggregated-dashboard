@@ -9,6 +9,8 @@ import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
 import './MasterChart.css';
 
+import PanelSet from '../DataTable/PanelCards/PanelSet';
+
 const GRAPH_HEIGHT = 320;
 
 /**
@@ -72,6 +74,7 @@ export default class MasterChart extends Component {
     } = this.props;
     // cloneDeep used as placeholder as later the parsed data will be passed in as a prop
     const dataWrapper = _.cloneDeep(DataParser(data, startDate, endDate, aggregate, value));
+    
     const labels = ['Time'].concat(dataWrapper.labels);
 
     const filteredData = this.filterData(dataWrapper, labels);
@@ -138,6 +141,7 @@ export default class MasterChart extends Component {
           </Row>
         </Grid>
       </Paper>
+  
 
     );
   }
