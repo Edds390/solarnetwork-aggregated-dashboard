@@ -95,7 +95,15 @@ export default class DashboardLeftBar extends React.Component {
 
   render() {
     const { checklistToggleMap } = this.props;
-    const { open, checklistRenderMap } = this.state;
+    const { open } = this.state;
+    const checklistRenderMap = {};
+    Object.keys(checklistToggleMap).forEach((checkListItemLabel) => {
+      const nodeId = checkListItemLabel.substr(0, checkListItemLabel.indexOf(' '));
+      if (checklistRenderMap[nodeId] === undefined) {
+        checklistRenderMap[nodeId] = [];
+      }
+      checklistRenderMap[nodeId].push(checkListItemLabel.substr(checkListItemLabel.indexOf(' ') + 1));
+    });
     return (
       <div>
         <IconButton
@@ -120,14 +128,15 @@ export default class DashboardLeftBar extends React.Component {
                       checked={this.checkNodeIdIsChecked(nodeString)}
                       onCheck={(event, isInputChecked) => this.updateCheckNode(isInputChecked, nodeString)}
                     />
-                    <Divider />;
+                    <Divider />
                     {checklistRenderMap[nodeString].map(dataSource => (
                       <Checkbox
                         key={`${nodeString} ${dataSource}`}
                         label={`${nodeString} ${dataSource}`}
                         checked={this.checkNodeDSIsChecked(`${nodeString} ${dataSource}`)}
                         onCheck={(event, isInputChecked) => this.updateCheckNodeDS(isInputChecked, `${nodeString} ${dataSource}`)}
-                      />))};
+                      />))}
+                      <br />
                   </div>
                   ))
               }

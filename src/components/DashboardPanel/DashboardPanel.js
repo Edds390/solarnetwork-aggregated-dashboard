@@ -6,6 +6,7 @@ import moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
+import DataParser from '../../utils/DataParser';
 
 
 import './DashboardPanel.css';
@@ -17,6 +18,7 @@ export default class DashboardPanel extends Component {
     super(props);
     this.state = {
       dataModel: [],
+      parsedData: [],
       startDate: moment(this.props.startDate).format(DATEFORMAT),
       endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
@@ -45,7 +47,12 @@ export default class DashboardPanel extends Component {
    */
   async pullData() {
     const promiseList = [];
-    const { startDate, endDate } = this.state;
+    const {
+      startDate,
+      endDate,
+      aggregate,
+      value,
+    } = this.state;
     this.props.selectedNodes.forEach((node) => {
       promiseList.push(getNodeUsageData(node, startDate, endDate));
     });
@@ -55,7 +62,15 @@ export default class DashboardPanel extends Component {
     resultList.forEach((rawData) => {
       finalData = finalData.concat(rawData.data.results);
     });
-    this.setState({ dataModel: finalData });
+    // give an initial parse-through based on the first value then use it to
+    // populate the toggle map
+    const parsedData = DataParser(finalData, startDate, endDate, aggregate, value);
+    const checklistToggleMap = {};
+    const labels = _.cloneDeep(parsedData.labels);
+    labels.forEach((label) => {
+      checklistToggleMap[label] = true;
+    });
+    this.setState({ dataModel: finalData, checklistToggleMap, parsedData });
   }
 
   handleStackViewChange = (isInputChecked) => {
