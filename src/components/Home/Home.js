@@ -93,9 +93,9 @@ export default class Home extends Component {
               />
             </Link>
           </div>
-          <div className="datepickers">
-            <DatePicker hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
-            <DatePicker hintText="End Date" container="inline" value={this.state.endDate} onChange={this.handleEndDateChange} />
+          <div className="datepickerContainer">
+            <DatePicker className="datepicker" hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
+            <DatePicker className="datepicker" hintText="End Date" container="inline" value={this.state.endDate} onChange={this.handleEndDateChange} />
           </div>
           <div className="chips">
             {nodeChips}

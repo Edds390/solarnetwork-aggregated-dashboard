@@ -29,9 +29,13 @@
   margin: 15px;
 }
 
-.datepickers {
+.datepickerContainer {
   display: flex;
   margin:15px;
+}
+
+.datepicker {
+  margin-right: 10px;
 }
 .background {
   position: fixed;
