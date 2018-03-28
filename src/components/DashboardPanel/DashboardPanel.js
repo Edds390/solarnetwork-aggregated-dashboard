@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Toggle from 'material-ui/Toggle';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
@@ -9,10 +10,39 @@ import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
 import './DashboardPanel.css';
 
 const VALUES = [
+  'watts',
+  'current',
   'voltage',
-  'watt',
   'frequency',
   'realPower',
+  'watts_max',
+  'watts_min',
+  'current_max',
+  'current_min',
+  'powerFactor',
+  'voltage_max',
+  'voltage_min',
+  'phaseVoltage',
+  'apparentPower',
+  'frequency_max',
+  'frequency_min',
+  'reactivePower',
+  'realPower_max',
+  'realPower_min',
+  'powerFactor_max',
+  'powerFactor_min',
+  'phaseVoltage_max',
+  'phaseVoltage_min',
+  'apparentPower_max',
+  'apparentPower_min',
+  'reactivePower_max',
+  'reactivePower_min',
+  'effectivePowerFactor',
+  'effectivePowerFactor_max',
+  'effectivePowerFactor_min',
+  'wattHours',
+  'wattHoursReverse',
+  'phase',
 ];
 
 export default class DashboardPanel extends Component {
@@ -66,7 +96,6 @@ export default class DashboardPanel extends Component {
   }
 
   handleValueChange = (value) => {
-    console.log(value);
     this.setState({ value });
   }
 
@@ -84,21 +113,29 @@ export default class DashboardPanel extends Component {
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
-        <MasterChart
-          data={dataModel}
-          startDate={startDate}
-          endDate={endDate}
-          aggregate={aggregate}
-          value={value}
-          checklistToggleMap={checklistToggleMap}
-          isStacked={isStacked}
-          onStackToggle={this.handleStackViewChange}
-        />
-        <ValueNavigationList
-          listItems={values}
-          selectedItem={value}
-          onValueChange={this.handleValueChange}
-        />
+        <Grid style={{ width: '100%' }}>
+          <Row>
+            <Col xs={2}>
+              <ValueNavigationList
+                listItems={values}
+                selectedItem={value}
+                onValueChange={this.handleValueChange}
+              />
+            </Col>
+            <Col xs={10}>
+              <MasterChart
+                data={dataModel}
+                startDate={startDate}
+                endDate={endDate}
+                aggregate={aggregate}
+                value={value}
+                checklistToggleMap={checklistToggleMap}
+                isStacked={isStacked}
+                onStackToggle={this.handleStackViewChange}
+              />
+            </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }

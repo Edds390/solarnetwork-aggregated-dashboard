@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List, ListItem } from 'material-ui/List';
 import Paper from 'material-ui/Paper/Paper';
+import './ValueNavigationList.css';
 
 
 const ValueNavigationlist = (props) => {
@@ -11,7 +12,7 @@ const ValueNavigationlist = (props) => {
     onValueChange,
   } = props;
   return (
-    <Paper className="valueBar">
+    <Paper className="valueContainer">
       <List>
         {
         listItems.map((listItem) => {
@@ -26,7 +27,6 @@ const ValueNavigationlist = (props) => {
       }
       </List>
     </Paper>
-
   );
 };
 
