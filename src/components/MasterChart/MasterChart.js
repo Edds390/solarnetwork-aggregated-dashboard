@@ -136,7 +136,7 @@ export default class MasterChart extends Component {
                 </Panel>
               </Paper>
             </Col>
-            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel dygraph-dimension highlight" />
             <Grid className="show-grid">
               <Row>
                 <Col xs={2} id="grid-toggle">

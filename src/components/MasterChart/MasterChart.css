@@ -42,12 +42,15 @@
   text-align: left !important;
   min-height: 200px;
 }
-.highlight {
-  text-decoration: underline !important;
-  font-weight: 600;
+
+.dygraph-dimension {
   width: 90%;
   min-height: 600px;
   margin: 50px 100px 10px 70px;
+}
+.highlight {
+  text-decoration: underline !important;
+  font-weight: 600;
 }
 
 .bottomBar {
