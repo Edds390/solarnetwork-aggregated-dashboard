@@ -26,39 +26,36 @@ display information associated with their corresponding node */
         chosenNodes.add(node);
       }
     });
-//    const data2 = require('./Times.json');
-const data2 = require('./ShorterTimes.json');
-    
-const array = Array.from(chosenNodes);
-    const arr = new Array(array.length);
+    /* At this stage, using manual input data from an external file */
+    //    const data2 = require('./Times.json');
+    const nodeTimeDataValues = require('./ShorterTimes.json');
+    const chosenNodeArray = Array.from(chosenNodes);
+    const nodeArrayElements = new Array(chosenNodeArray.length);
 
-
-    for (let i = 0; i < data2.labels.length; i++) {
-      let label = data2.labels[i];
+    /* Placing in the nodeArrayElements array the index value the node is with respect to the
+    nodeTimeDataValues set */
+    for (let i = 0; i < nodeTimeDataValues.labels.length; i++) {
+      const label = nodeTimeDataValues.labels[i];
       if (chosenNodes.has(label)) {
-        arr[array.indexOf(label)] = i;
+        nodeArrayElements[chosenNodeArray.indexOf(label)] = i;
       }
     }
-console.log("Array is " + arr);   //Are the indices of the respective nodes.
 
-const sumArray = new Array(arr.length).fill(0);
+    /* Initialising a sum array - accumulating the sum of values corresponding to each selected node. */
+    const sumArray = new Array(nodeArrayElements.length).fill(0);
 
-for(let i = 0; i < data2.data.length; i++){
-  for (let j = 0; j < arr.length; j++){
-    const timeRow = data2.data[i]; 
-    const timeRowIndex = arr[j];
-     const value = timeRow[timeRowIndex];
-      
-      sumArray[j] = sumArray[j] + value;
-  }
-}
+    /* Iterating through the dataset and calculating values for each selected node */ 
+    for (let i = 0; i < nodeTimeDataValues.data.length; i++) {
+      for (let j = 0; j < nodeArrayElements.length; j++) {
+        const timeRow = nodeTimeDataValues.data[i];
+        const timeRowIndex = nodeArrayElements[j];
+        const value = timeRow[timeRowIndex];
 
-for(let i = 0; i < sumArray.length; i++){
-  console.log(sumArray[i]);
-}
+        sumArray[j] += value;
+      }
+    }
 
-
-    const nodeCards = array.map((nodeId, i) => (
+    const nodeCards = chosenNodeArray.map((nodeId, i) => (
       <Panel eventKey={i} >
         <Panel.Heading>
           <Panel.Title >{nodeId}</Panel.Title>
