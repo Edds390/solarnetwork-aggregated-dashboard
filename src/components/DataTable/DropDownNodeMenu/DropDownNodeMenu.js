@@ -2,14 +2,7 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandableCard from '../ExpandableCard/ExpandableCard';
-
-/* Provided by Material UI for the width of the drop down menu.
-TO DO: Place this formatting into separate .css file */
-const styles = {
-  customWidth: {
-    width: 600,
-  },
-};
+import './DropDownNodeMenu.css';
 
 /* Manual input at this stage representing dummy data to be parsed through for each card,
 that represents each node. The intention is to obtain information in the format below and
@@ -53,7 +46,7 @@ export default class DropDownNodeMenu extends React.Component {
         <DropDownMenu
           value={this.state.value}
           onChange={this.handleChange}
-          style={styles.customWidth}
+          className="custom-width"
           autoWidth={false}
         >
           <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
