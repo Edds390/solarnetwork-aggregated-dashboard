@@ -48,42 +48,6 @@ const VALUES = [
 ];
 const DATEFORMAT = 'YYYY-MM-DD';
 
-const VALUES = [
-  'watts',
-  'current',
-  'voltage',
-  'frequency',
-  'realPower',
-  'watts_max',
-  'watts_min',
-  'current_max',
-  'current_min',
-  'powerFactor',
-  'voltage_max',
-  'voltage_min',
-  'phaseVoltage',
-  'apparentPower',
-  'frequency_max',
-  'frequency_min',
-  'reactivePower',
-  'realPower_max',
-  'realPower_min',
-  'powerFactor_max',
-  'powerFactor_min',
-  'phaseVoltage_max',
-  'phaseVoltage_min',
-  'apparentPower_max',
-  'apparentPower_min',
-  'reactivePower_max',
-  'reactivePower_min',
-  'effectivePowerFactor',
-  'effectivePowerFactor_max',
-  'effectivePowerFactor_min',
-  'wattHours',
-  'wattHoursReverse',
-  'phase',
-];
-
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
