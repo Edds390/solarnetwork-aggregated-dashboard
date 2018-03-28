@@ -1,1 +1,17 @@
+#graph-area {
+  min-height: 600px;
+  height: 100%;
+  padding-bottom: 20px;
+  flaot: left;
+  width: 80%;
+}
+
+#value-nav {
+  padding-right: 0px;
+  margin: 10px;
+}
+
+#master-chart {
+  height: 100%;
+}
 

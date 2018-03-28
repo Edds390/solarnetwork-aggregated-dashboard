@@ -8,6 +8,7 @@ import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
 import './MasterChart.css';
+import {Panel} from 'react-bootstrap';
 
 const GRAPH_HEIGHT = 320;
 
@@ -114,32 +115,38 @@ export default class MasterChart extends Component {
       <Paper className="paper">
         <Grid style={{ width: '100%' }}>
           <Row>
-            <Col xs={11} md={8}>
-              <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
-              <Grid>
-                <Row className="show-grid">
-                  <Col xs={2}>
-                    <Toggle
-                      label="Stack View"
-                      defaultToggled
-                      onToggle={(event, isInputChecked) =>
-                        this.handleStackViewChange(event, isInputChecked)}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-            </Col>
-            <Col xs={12} md={3}>
+            <Col xs={12} md={3} id="legend">
               <Paper>
-                <div className="legend-header">Legend</div>
-                <div className="legend-body">
-                  <div ref={legendRef} className="dygraph-legend" />
-                </div>
+                <Panel>
+                  <Panel.Toggle className="legend-header">
+                    <Panel.Heading className="panel-head">
+                      <Panel.Title >Legend</Panel.Title>
+                    </Panel.Heading>
+                  </Panel.Toggle>
+                  <Panel.Collapse>
+                    <Panel.Body className="legend-body">
+                      <div ref={legendRef} className="dygraph-legend" />
+                    </Panel.Body>
+                  </Panel.Collapse>
+                </Panel>
               </Paper>
             </Col>
-            <Col xs={1} style={{ position: 'relative' }}>
+            <Col xs={1} style={{ position: 'relative'}} id="help">
               <GraphTutorialPopover />
             </Col>
+            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
+            <Grid className="show-grid">
+              <Row>
+                <Col xs={2} id="grid-toggle">
+                  <Toggle
+                    label="Stack View"
+                    defaultToggled
+                    onToggle={(event, isInputChecked) =>
+                      this.handleStackViewChange(event, isInputChecked)}
+                  />
+                </Col>
+              </Row>
+            </Grid>
           </Row>
         </Grid>
       </Paper>

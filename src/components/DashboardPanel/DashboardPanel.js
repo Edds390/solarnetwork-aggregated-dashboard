@@ -115,14 +115,14 @@ export default class DashboardPanel extends Component {
       <div className="dashboardPanelWrapper">
         <Grid style={{ width: '100%' }}>
           <Row>
-            <Col xs={2}>
+            <Col xs={2} id="value-nav">
               <ValueNavigationList
                 listItems={values}
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
             </Col>
-            <Col xs={10}>
+            <Col xs={10} id="graph-area">
               <MasterChart
                 data={dataModel}
                 startDate={startDate}
@@ -132,6 +132,7 @@ export default class DashboardPanel extends Component {
                 checklistToggleMap={checklistToggleMap}
                 isStacked={isStacked}
                 onStackToggle={this.handleStackViewChange}
+                id="master-chart"
               />
             </Col>
           </Row>
