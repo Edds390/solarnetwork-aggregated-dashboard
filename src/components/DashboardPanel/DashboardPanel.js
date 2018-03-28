@@ -4,8 +4,16 @@ import Toggle from 'material-ui/Toggle';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
+import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
 
 import './DashboardPanel.css';
+
+const VALUES = [
+  'voltage',
+  'watt',
+  'frequency',
+  'realPower',
+];
 
 export default class DashboardPanel extends Component {
   constructor(props) {
@@ -15,6 +23,7 @@ export default class DashboardPanel extends Component {
       startDate: '2018-03-19',
       endDate: '2018-03-24',
       aggregate: 'Hour',
+      values: VALUES,
       value: 'voltage',
       checklistToggleMap: {
         'Node182 DB': true,
@@ -56,6 +65,11 @@ export default class DashboardPanel extends Component {
     this.setState({ isStacked: isInputChecked });
   }
 
+  handleValueChange = (value) => {
+    console.log(value);
+    this.setState({ value });
+  }
+
   render() {
     const { selectedNodes } = this.props;
     const {
@@ -66,6 +80,7 @@ export default class DashboardPanel extends Component {
       value,
       checklistToggleMap,
       isStacked,
+      values,
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
@@ -80,6 +95,11 @@ export default class DashboardPanel extends Component {
           checklistToggleMap={checklistToggleMap}
           isStacked={isStacked}
           onStackToggle={this.handleStackViewChange}
+        />
+        <ValueNavigationList
+          listItems={values}
+          selectedItem={value}
+          onValueChange={this.handleValueChange}
         />
       </div>
     );
