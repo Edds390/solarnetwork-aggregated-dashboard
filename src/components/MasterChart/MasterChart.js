@@ -114,7 +114,7 @@ export default class MasterChart extends Component {
       <Paper className="paper">
         <Grid style={{ width: '100%' }}>
           <Row>
-            <Col xs={11} md={9}>
+            <Col xs={11} md={8}>
               <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
               <Grid>
                 <Row className="show-grid">
@@ -129,7 +129,7 @@ export default class MasterChart extends Component {
                 </Row>
               </Grid>
             </Col>
-            <Col xs={12} md={2}>
+            <Col xs={12} md={3}>
               <Paper>
                 <div className="legend-header">Legend</div>
                 <div className="legend-body">

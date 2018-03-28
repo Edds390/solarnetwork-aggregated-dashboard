@@ -5,7 +5,6 @@ import { List } from 'material-ui-icons';
 import IconButton from 'material-ui/IconButton';
 import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
-import cloneDeep from 'lodash';
 
 import './DashboardLeftBar.css';
 
@@ -34,9 +33,7 @@ export default class DashboardLeftBar extends React.Component {
     });
 
     this.state = {
-      nodes: this.props.nodes,
       open: false,
-      checklistRenderMap: nodeToDsMap,
     };
   }
 
@@ -136,7 +133,7 @@ export default class DashboardLeftBar extends React.Component {
                         checked={this.checkNodeDSIsChecked(`${nodeString} ${dataSource}`)}
                         onCheck={(event, isInputChecked) => this.updateCheckNodeDS(isInputChecked, `${nodeString} ${dataSource}`)}
                       />))}
-                      <br />
+                    <br />
                   </div>
                   ))
               }
@@ -149,10 +146,6 @@ export default class DashboardLeftBar extends React.Component {
 }
 
 DashboardLeftBar.propTypes = {
-  nodes: PropTypes.arrayOf(PropTypes.shape({
-    nodeId: PropTypes.number.isRequired,
-    checked: PropTypes.bool.isRequired,
-  })).isRequired,
   checklistToggleMap: PropTypes.object.isRequired,
   onCheckboxCheck: PropTypes.func.isRequired,
   onCheckboxBulkCheck: PropTypes.func.isRequired,
