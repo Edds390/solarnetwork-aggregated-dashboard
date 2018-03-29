@@ -1,0 +1,7 @@
+.dataSourceContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
