@@ -12,21 +12,26 @@ const ValueNavigationlist = (props) => {
     onValueChange,
   } = props;
   return (
-    <Paper className="valueContainer">
-      <List>
-        {
-        listItems.map((listItem) => {
-          const selected = listItem === selectedItem;
-          return (<ListItem
-            primaryText={listItem}
-            isKeyboardFocused={selected}
-            value={listItem}
-            onClick={() => onValueChange(listItem)}
-          />);
-        })
-      }
-      </List>
-    </Paper>
+    <div>
+      <div className="info-title">
+        Values
+      </div>
+      <Paper className="valueContainer" zDepth="1">
+        <List>
+          {
+          listItems.map((listItem) => {
+            const selected = listItem === selectedItem;
+            return (<ListItem
+              primaryText={listItem}
+              isKeyboardFocused={selected}
+              value={listItem}
+              onClick={() => onValueChange(listItem)}
+            />);
+          })
+        }
+        </List>
+      </Paper>
+    </div>
   );
 };
 

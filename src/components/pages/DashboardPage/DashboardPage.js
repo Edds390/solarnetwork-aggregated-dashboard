@@ -21,7 +21,6 @@ export default class DashboardPage extends React.Component {
       <div className="dashboard-page">
         <TopNavigationBar />
         <DashboardPanel selectedNodes={selectedNodes} startDate={startDate} endDate={endDate} />
-        <DropDownNodeMenu />
       </div>
     );
   }

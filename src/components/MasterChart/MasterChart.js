@@ -7,6 +7,9 @@ import Dygraph from 'dygraphs';
 import _ from 'lodash';
 import DataParser from '../../utils/DataParser';
 import GraphTutorialPopover from '../GraphTutorialPopover/GraphTutorialPopover';
+import {Panel} from 'react-bootstrap';
+import ListIcon from 'material-ui/svg-icons/action/list'
+import {black} from 'material-ui/styles/colors'
 import './MasterChart.css';
 
 const GRAPH_HEIGHT = 320;
@@ -111,35 +114,44 @@ export default class MasterChart extends Component {
       this.legendRef = ref;
     };
     return (
-      <Paper className="paper">
+      <Paper className="paper" zDepth="4">
+        <div id="graphical-info-header" className="info-title">
+          Graphical Information
+        </div>
         <Grid style={{ width: '100%' }}>
           <Row>
-            <Col xs={11} md={8}>
-              <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel highlight" />
-              <Grid>
-                <Row className="show-grid">
-                  <Col xs={2}>
-                    <Toggle
-                      label="Stack View"
-                      defaultToggled
-                      onToggle={(event, isInputChecked) =>
-                        this.handleStackViewChange(event, isInputChecked)}
-                    />
-                  </Col>
-                </Row>
-              </Grid>
-            </Col>
-            <Col xs={12} md={3}>
+            <Col xs={12} md={3} id="legend">
               <Paper>
-                <div className="legend-header">Legend</div>
-                <div className="legend-body">
-                  <div ref={legendRef} className="dygraph-legend" />
-                </div>
+                <Panel>
+                  <Panel.Toggle className="legend-header">
+                    <Panel.Heading className="panel-head">
+                      <ListIcon color="#588897"/>
+                    </Panel.Heading>
+                  </Panel.Toggle>
+                  <Panel.Collapse>
+                    <Panel.Body className="legend-body">
+                      <div ref={legendRef} className="dygraph-legend" />
+                    </Panel.Body>
+                  </Panel.Collapse>
+                </Panel>
               </Paper>
             </Col>
-            <Col xs={1} style={{ position: 'relative' }}>
-              <GraphTutorialPopover />
-            </Col>
+            <div ref={chartRef} className="dygraph-xlabel dygraph-ylabel dygraph-dimension highlight" />
+            <Grid className="show-grid">
+              <Row>
+                <Col xs={2} id="grid-toggle">
+                  <Toggle
+                    label="Stack View"
+                    defaultToggled
+                    onToggle={(event, isInputChecked) =>
+                      this.handleStackViewChange(event, isInputChecked)}
+                  />
+                </Col>
+                <Col xs={1} style={{ position: 'relative'}} id="help">
+                  <GraphTutorialPopover />
+                </Col>
+              </Row>
+            </Grid>
           </Row>
         </Grid>
       </Paper>
