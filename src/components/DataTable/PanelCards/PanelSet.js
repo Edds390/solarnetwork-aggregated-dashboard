@@ -29,8 +29,8 @@ display information associated with their corresponding node */
       }
     });
     /* At this stage, using manual input data from an external file */
-    const nodeTimeDataValues = require('./Times.json');
-//    const nodeTimeDataValues = require('./ShorterTimes.json');
+//    const nodeTimeDataValues = require('./Times.json');
+    const nodeTimeDataValues = require('./ShorterTimes.json');
     const chosenNodeArray = Array.from(chosenNodes);
     const nodeArrayElements = new Array(chosenNodeArray.length);
 
@@ -45,7 +45,8 @@ display information associated with their corresponding node */
 
     /* Initialising a sum array - accumulating the sum of values corresponding to each selected node. */
     const sumArray = new Array(nodeArrayElements.length).fill(0);
-
+    const maxArray = new Array(nodeArrayElements.length).fill(0);
+ 
     /* Iterating through the dataset and calculating values for each selected node */
     for (let i = 0; i < nodeTimeDataValues.data.length; i++) {
       for (let j = 0; j < nodeArrayElements.length; j++) {
@@ -54,8 +55,17 @@ display information associated with their corresponding node */
         const value = timeRow[timeRowIndex];
         if (value != null) {
           sumArray[j] += value;
+          if(maxArray[j] < value) { 
+            maxArray[j] = value;
+          }  
         }
       }
+    }
+
+    const averageArray = Array.from(sumArray);
+    for(let i = 0; i < averageArray.length; i++) {
+      const currentValue = averageArray[i];
+      averageArray[i] = currentValue / nodeTimeDataValues.data.length;
     }
 
     const nodeCards = chosenNodeArray.map((nodeId, i) => (
@@ -65,11 +75,11 @@ display information associated with their corresponding node */
         </Panel.Heading>
         <Panel.Body >
           <p>Sum is {sumArray[i].toFixed(2)}</p>
-          <p>{nodeTimeDataValues.nodeId}</p>
+          <p>Maximum Value is {maxArray[i].toFixed(2)}</p>
+          <p>Average Value is {averageArray[i].toFixed(2)}</p>          
         </Panel.Body>
       </Panel>));
     return (
-
       <div>
         <Button onClick={() => this.setState({ open: !this.state.open })}>
           View Node Information
