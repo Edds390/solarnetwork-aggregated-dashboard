@@ -165,7 +165,7 @@ export default class DashboardPanel extends Component {
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
-                <DropDownNodeMenu checklistToggleMap={checklistToggleMap} nodeTimeDataValues={parsedData}/>
+                <DropDownNodeMenu checklistToggleMap={checklistToggleMap} nodeTimeDataValues={parsedData} value={value}/>
             </Col>
             <Col xs={10} id="graph-area">
               <MasterChart

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import PropTypes from 'prop-types';
+import { min } from 'moment';
 
 
 /* This component is for an individual card within the drop down menu for node information.
@@ -18,6 +19,7 @@ export default class ExpandableCard extends React.Component {
   render() {
     const { checklistToggleMap } = this.props;
     const { nodeTimeDataValues } = this.props;
+    const { value } = this.props;
 
 
     const chosenNodes = new Set(this.state.selectedNodes);
@@ -88,7 +90,7 @@ export default class ExpandableCard extends React.Component {
     }
 
    nodeCards = chosenNodeArray.map((nodeId, i) =>
-      (
+   (
           <Card>
           <CardHeader
             title={nodeId}
@@ -96,9 +98,10 @@ export default class ExpandableCard extends React.Component {
             showExpandableButton
           />
           <CardText expandable>
-            <p>Sum is {sumArray[i]}</p>
-            <p>Maximum Value is {maxArray[i]}</p>
-            <p>Average Value is {averageArray[i]}</p>
+            <p>Accumlated total {value}:  {sumArray[i].toFixed(2)}</p>
+            <p>Maximum {value}: {maxArray[i].toFixed(2)}</p>
+            <p>Average {value}: {averageArray[i].toFixed(2)}</p>
+          
           </CardText>
         </Card>
       ));
@@ -114,4 +117,5 @@ export default class ExpandableCard extends React.Component {
 ExpandableCard.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired,
   nodeTimeDataValues: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
 };

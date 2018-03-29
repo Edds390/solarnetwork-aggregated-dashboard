@@ -29,6 +29,7 @@ export default class DropDownNodeMenu extends React.Component {
   render() {
     const { checklistToggleMap } = this.props;
     const { nodeTimeDataValues } = this.props;
+    const { value } = this.props;
     return (
       <div className="nodeContainer">
         <div className="info-title">Nodes</div>
@@ -37,7 +38,7 @@ export default class DropDownNodeMenu extends React.Component {
           onChange={this.handleChange}
           className="custom-width"
           autoWidth={false}>
-          <ExpandableCard checklistToggleMap={checklistToggleMap} nodeTimeDataValues={nodeTimeDataValues} />
+          <ExpandableCard checklistToggleMap={checklistToggleMap} nodeTimeDataValues={nodeTimeDataValues} value={value}/>
         </Paper>
       </div>
     );
@@ -46,4 +47,5 @@ export default class DropDownNodeMenu extends React.Component {
 DropDownNodeMenu.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired,
   nodeTimeDataValues: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
 };
