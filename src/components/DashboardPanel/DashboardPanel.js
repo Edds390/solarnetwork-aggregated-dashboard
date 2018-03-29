@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Grid, Row, Col } from 'react-bootstrap';
-import Toggle from 'material-ui/Toggle';
 import moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
+import DataParser from '../../utils/DataParser';
+
 import PanelSet from '../DataTable/PanelCards/PanelSet';
 import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
 import DropDownNodeMenu from '../DataTable/DropDownNodeMenu/DropDownNodeMenu';
@@ -54,19 +56,13 @@ export default class DashboardPanel extends Component {
     super(props);
     this.state = {
       dataModel: [],
+      parsedData: {},
       startDate: moment(this.props.startDate).format(DATEFORMAT),
       endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
       values: VALUES,
       value: 'voltage',
-      checklistToggleMap: {
-        'Node182 DB': true,
-        'Node182 Ph1': true,
-        'Node182 Ph2': false,
-        'Node182 Ph3': true,
-        'Node182 Solar': true,
-        'Node182 Solar_SMA': false,
-      },
+      checklistToggleMap: {},
       isStacked: true,
     };
  
@@ -82,7 +78,12 @@ export default class DashboardPanel extends Component {
    */
   async pullData() {
     const promiseList = [];
-    const { startDate, endDate } = this.state;
+    const {
+      startDate,
+      endDate,
+      aggregate,
+      value,
+    } = this.state;
     this.props.selectedNodes.forEach((node) => {
       promiseList.push(getNodeUsageData(node, startDate, endDate));
     });
@@ -92,15 +93,47 @@ export default class DashboardPanel extends Component {
     resultList.forEach((rawData) => {
       finalData = finalData.concat(rawData.data.results);
     });
-    this.setState({ dataModel: finalData });
+    // give an initial parse-through based on the first value then use it to
+    // populate the toggle map. Initial parse-through is necessary to populate
+    // the keys of the checklist map.
+    const parsedData = DataParser(finalData, startDate, endDate, aggregate, value);
+    const checklistToggleMap = {};
+    const labels = _.cloneDeep(parsedData.labels);
+    labels.forEach((label) => {
+      checklistToggleMap[label] = true;
+    });
+    this.setState({ dataModel: finalData, checklistToggleMap, parsedData });
   }
  
   handleStackViewChange = (isInputChecked) => {
     this.setState({ isStacked: isInputChecked });
   }
 
+  handleCheckboxCheck = (isInputChecked, nodeDsString) => {
+    const checklistToggleMap = _.cloneDeep(this.state.checklistToggleMap);
+    checklistToggleMap[nodeDsString] = isInputChecked;
+    this.setState({ checklistToggleMap });
+  }
+
+  handleCheckboxBulkCheck = (isInputChecked, nodeString) => {
+    const checklistToggleMap = _.cloneDeep(this.state.checklistToggleMap);
+    Object.keys(checklistToggleMap).forEach((nodeIdDs) => {
+      if (nodeString === nodeIdDs.substr(0, nodeIdDs.indexOf(' '))) {
+        checklistToggleMap[nodeIdDs] = isInputChecked;
+      }
+    });
+    this.setState({ checklistToggleMap });
+  }
+
   handleValueChange = (value) => {
-    this.setState({ value });
+    const {
+      dataModel,
+      startDate,
+      endDate,
+      aggregate,
+    } = this.state;
+    const parsedData = DataParser(dataModel, startDate, endDate, aggregate, value);
+    this.setState({ value, parsedData });
   }
 
   render() {
@@ -117,6 +150,12 @@ export default class DashboardPanel extends Component {
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
+        <DashboardLeftBar
+          nodes={selectedNodes}
+          checklistToggleMap={checklistToggleMap}
+          onCheckboxCheck={this.handleCheckboxCheck}
+          onCheckboxBulkCheck={this.handleCheckboxBulkCheck}
+        />
         <Grid style={{ width: '100%' }}>
           <Row>
             <Col xs={2} id="value-nav">

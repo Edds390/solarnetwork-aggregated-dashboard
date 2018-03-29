@@ -74,9 +74,9 @@ display information associated with their corresponding node */
           <Panel.Title >{nodeId}</Panel.Title>
         </Panel.Heading>
         <Panel.Body >
-          <p>Sum is {sumArray[i].toFixed(2)}</p>
-          <p>Maximum Value is {maxArray[i].toFixed(2)}</p>
-          <p>Average Value is {averageArray[i].toFixed(2)}</p>          
+          <p>Sum is {sumArray[i]}</p>
+          <p>Maximum Value is {maxArray[i]}</p>
+          <p>Average Value is {averageArray[i]}</p>          
         </Panel.Body>
       </Panel>));
     return (
