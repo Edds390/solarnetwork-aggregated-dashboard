@@ -71,7 +71,7 @@ export default class ExpandableCard extends React.Component {
       for (let j = 0; j < nodeArrayElements.length; j++) {
         const timeRow = nodeTimeDataValues.data[i];
         const timeRowIndex = nodeArrayElements[j];
-        const value = timeRow[timeRowIndex];
+        const value = timeRow[timeRowIndex+1];
         if (value != null) {
           sumArray[j] += value;
           if (maxArray[j] < value) {
