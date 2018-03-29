@@ -1,3 +1,10 @@
 .custom-width {
   min-width: 100% !important;
 }
+
+.nodeContainer {
+  height: 100%;
+  width: 100%;
+  overflow: scroll !important;
+  margin-top: 20px;
+}
