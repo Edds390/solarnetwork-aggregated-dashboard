@@ -8,7 +8,7 @@ import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
 import DataParser from '../../utils/DataParser';
 
-import PanelSet from '../DataTable/PanelCards/PanelSet';
+
 import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
 import DropDownNodeMenu from '../DataTable/DropDownNodeMenu/DropDownNodeMenu';
 
@@ -147,7 +147,7 @@ export default class DashboardPanel extends Component {
       checklistToggleMap,
       isStacked,
       values,
-      parsedData
+      parsedData,
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
@@ -165,7 +165,7 @@ export default class DashboardPanel extends Component {
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
-                <DropDownNodeMenu checklistToggleMap={checklistToggleMap}/>
+                <DropDownNodeMenu checklistToggleMap={checklistToggleMap} nodeTimeDataValues={parsedData}/>
             </Col>
             <Col xs={10} id="graph-area">
               <MasterChart

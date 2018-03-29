@@ -18,7 +18,7 @@ this functionality filters through the nodes and selects the one that are true
 display information associated with their corresponding node */
   render() {
     const { checklistToggleMap } = this.props;
-  //  const { nodeTimeDataValues } = this.props;
+    const { nodeTimeDataValues } = this.props;
     
    const chosenNodes = new Set(this.state.selectedNodes);
 
@@ -28,7 +28,7 @@ display information associated with their corresponding node */
       }
     });
     /* At this stage, using manual input data from an external file */
-    const nodeTimeDataValues = require('./Times.json');
+//    const nodeTimeDataValues = require('./Times.json');
   //  const nodeTimeDataValues = require('./ShorterTimes.json');
     const chosenNodeArray = Array.from(chosenNodes);
     const nodeArrayElements = new Array(chosenNodeArray.length);

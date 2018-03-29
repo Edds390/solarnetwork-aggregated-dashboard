@@ -17,78 +17,101 @@ export default class ExpandableCard extends React.Component {
   via props). */
   render() {
     const { checklistToggleMap } = this.props;
-    //  const { nodeTimeDataValues } = this.props;
-      
-     const chosenNodes = new Set(this.state.selectedNodes);
-  
-      Object.keys(checklistToggleMap).forEach((node) => {
-        if (checklistToggleMap[node]) {
-          chosenNodes.add(node);
-        }
-      });
-      /* At this stage, using manual input data from an external file */
-  //    const nodeTimeDataValues = require('./Times.json');
-      const nodeTimeDataValues = require('./ShorterTimes.json');
-      const chosenNodeArray = Array.from(chosenNodes);
-      const nodeArrayElements = new Array(chosenNodeArray.length);
-  
-      /* Placing in the nodeArrayElements array the index value the node is with respect to the
-      nodeTimeDataValues set */
-      for (let i = 0; i < nodeTimeDataValues.labels.length; i++) {
-        const label = nodeTimeDataValues.labels[i];
-        if (chosenNodes.has(label)) {
-          nodeArrayElements[chosenNodeArray.indexOf(label)] = i;
-        }
-      }
-  
-      /* Initialising a sum array - accumulating the sum of values corresponding to each selected node. */
-      const sumArray = new Array(nodeArrayElements.length).fill(0);
-      const maxArray = new Array(nodeArrayElements.length).fill(0);
-   
-      /* Iterating through the dataset and calculating values for each selected node */
-      for (let i = 0; i < nodeTimeDataValues.data.length; i++) {
-        for (let j = 0; j < nodeArrayElements.length; j++) {
-          const timeRow = nodeTimeDataValues.data[i];
-          const timeRowIndex = nodeArrayElements[j];
-          const value = timeRow[timeRowIndex];
-          if (value != null) {
-            sumArray[j] += value;
-            if(maxArray[j] < value) { 
-              maxArray[j] = value;
-            }  
-          }
-        }
-      }
-  
-      const averageArray = Array.from(sumArray);
-      for(let i = 0; i < averageArray.length; i++) {
-        const currentValue = averageArray[i];
-        averageArray[i] = currentValue / nodeTimeDataValues.data.length;
-      }
+    const { nodeTimeDataValues } = this.props;
 
-    const nodeCards = chosenNodeArray.map((nodeId, i) =>
+
+    const chosenNodes = new Set(this.state.selectedNodes);
+
+    Object.keys(checklistToggleMap).forEach((node) => {
+      if (checklistToggleMap[node]) {
+        chosenNodes.add(node);
+      }
+    });
+    /* At this stage, using manual input data from an external file */
+    //    const nodeTimeDataValues = require('./Times.json');
+    //   const nodeTimeDataValues = require('./ShorterTimes.json');
+    const chosenNodeArray = Array.from(chosenNodes);
+    const nodeArrayElements = new Array(chosenNodeArray.length);
+
+    /* Placing in the nodeArrayElements array the index value the node is with respect to the
+      nodeTimeDataValues set */
+
+    let nodeCards;
+    if (Object.keys(nodeTimeDataValues).length === 0 ) {
+      console.log('empty');
+      nodeCards = chosenNodeArray.map((nodeId, i) =>
       (
-        <Card>
+          <Card>
           <CardHeader
             title={nodeId}
             actAsExpander
             showExpandableButton
           />
           <CardText expandable>
-          <p>Sum is {sumArray[i]}</p>
-          <p>Maximum Value is {maxArray[i]}</p>
-          <p>Average Value is {averageArray[i]}</p>     
+            <p>Click to find out</p>
           </CardText>
         </Card>
       ));
+    } else {
+      console.log('Not empty');
+  
+    for (let i = 0; i < nodeTimeDataValues.labels.length; i++) {
+      const label = nodeTimeDataValues.labels[i];
+      if (chosenNodes.has(label)) {
+        nodeArrayElements[chosenNodeArray.indexOf(label)] = i;
+      }
+    }
+
+    /* Initialising a sum array - accumulating the sum of values corresponding to each selected node. */
+    const sumArray = new Array(nodeArrayElements.length).fill(0);
+    const maxArray = new Array(nodeArrayElements.length).fill(0);
+
+    /* Iterating through the dataset and calculating values for each selected node */
+    for (let i = 0; i < nodeTimeDataValues.data.length; i++) {
+      for (let j = 0; j < nodeArrayElements.length; j++) {
+        const timeRow = nodeTimeDataValues.data[i];
+        const timeRowIndex = nodeArrayElements[j];
+        const value = timeRow[timeRowIndex];
+        if (value != null) {
+          sumArray[j] += value;
+          if (maxArray[j] < value) {
+            maxArray[j] = value;
+          }
+        }
+      }
+    }
+
+    const averageArray = Array.from(sumArray);
+    for (let i = 0; i < averageArray.length; i++) {
+      const currentValue = averageArray[i];
+      averageArray[i] = currentValue / nodeTimeDataValues.data.length;
+    }
+
+   nodeCards = chosenNodeArray.map((nodeId, i) =>
+      (
+          <Card>
+          <CardHeader
+            title={nodeId}
+            actAsExpander
+            showExpandableButton
+          />
+          <CardText expandable>
+            <p>Sum is {sumArray[i]}</p>
+            <p>Maximum Value is {maxArray[i]}</p>
+            <p>Average Value is {averageArray[i]}</p>
+          </CardText>
+        </Card>
+      ));
+    }
     return (
       <div>
-        {nodeCards}
+        <p>{nodeCards}</p>
       </div>
     );
   }
 }
 
 ExpandableCard.propTypes = {
-    checklistToggleMap: PropTypes.object.isRequired
+  checklistToggleMap: PropTypes.object.isRequired,
+  nodeTimeDataValues: PropTypes.object.isRequired,
 };

@@ -28,6 +28,7 @@ export default class DropDownNodeMenu extends React.Component {
  isn't a place holder text option. If this is clicked on, it will close the drop down menu */
   render() {
     const { checklistToggleMap } = this.props;
+    const { nodeTimeDataValues } = this.props;
     return (
       <div className="nodeContainer">
         <div className="info-title">Nodes</div>
@@ -36,7 +37,7 @@ export default class DropDownNodeMenu extends React.Component {
           onChange={this.handleChange}
           className="custom-width"
           autoWidth={false}>
-          <ExpandableCard checklistToggleMap={checklistToggleMap} />
+          <ExpandableCard checklistToggleMap={checklistToggleMap} nodeTimeDataValues={nodeTimeDataValues} />
         </Paper>
       </div>
     );
@@ -44,4 +45,5 @@ export default class DropDownNodeMenu extends React.Component {
 }
 DropDownNodeMenu.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired,
+  nodeTimeDataValues: PropTypes.object.isRequired,
 };
