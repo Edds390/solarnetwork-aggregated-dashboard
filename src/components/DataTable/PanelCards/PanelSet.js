@@ -18,8 +18,10 @@ this functionality filters through the nodes and selects the one that are true
 display information associated with their corresponding node */
   render() {
     const { checklistToggleMap } = this.props;
-    const { data } = this.props;
-    const chosenNodes = new Set(this.state.selectedNodes);
+  //  const { nodeTimeDataValues } = this.props;
+  const { data } = this.props;
+    
+   const chosenNodes = new Set(this.state.selectedNodes);
 
     Object.keys(checklistToggleMap).forEach((node) => {
       if (checklistToggleMap[node]) {
@@ -63,7 +65,7 @@ display information associated with their corresponding node */
         </Panel.Heading>
         <Panel.Body >
           <p>Sum is {sumArray[i].toFixed(2)}</p>
-          <p>{data.nodeId}</p>
+          <p>{nodeTimeDataValues.nodeId}</p>
         </Panel.Body>
       </Panel>));
     return (
@@ -88,5 +90,5 @@ display information associated with their corresponding node */
 
 PanelSet.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired,
-  data: PropTypes.array,
+  nodeTimeDataValues: PropTypes.object.isRequired,
 };

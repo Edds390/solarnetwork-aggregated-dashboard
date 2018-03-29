@@ -6,7 +6,7 @@ import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
 import PanelSet from '../DataTable/PanelCards/PanelSet';
 import './DashboardPanel.css';
-
+ 
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
@@ -26,14 +26,14 @@ export default class DashboardPanel extends Component {
       },
       isStacked: true,
     };
-
+ 
     this.pullData = this.pullData.bind(this);
   }
-
+ 
   componentWillMount() {
     this.pullData();
   }
-
+ 
   /**
    * Pulls data for all nodes in selectedNodes. Async method, to wait for fetch to finish.
    */
@@ -51,11 +51,11 @@ export default class DashboardPanel extends Component {
     });
     this.setState({ dataModel: finalData });
   }
-
+ 
   handleStackViewChange = (isInputChecked) => {
     this.setState({ isStacked: isInputChecked });
   }
-
+ 
   render() {
     const { selectedNodes } = this.props;
     const {
@@ -88,7 +88,6 @@ export default class DashboardPanel extends Component {
     );
   }
 }
-
 DashboardPanel.propTypes = {
   selectedNodes: PropTypes.object,
 };
