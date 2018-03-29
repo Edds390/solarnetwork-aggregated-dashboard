@@ -65,14 +65,14 @@ export default class DashboardPanel extends Component {
       checklistToggleMap: {},
       isStacked: true,
     };
- 
+
     this.pullData = this.pullData.bind(this);
   }
- 
+
   componentWillMount() {
     this.pullData();
   }
- 
+
   /**
    * Pulls data for all nodes in selectedNodes. Async method, to wait for fetch to finish.
    */
@@ -104,7 +104,7 @@ export default class DashboardPanel extends Component {
     });
     this.setState({ dataModel: finalData, checklistToggleMap, parsedData });
   }
- 
+
   handleStackViewChange = (isInputChecked) => {
     this.setState({ isStacked: isInputChecked });
   }
@@ -165,7 +165,11 @@ export default class DashboardPanel extends Component {
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
-                <DropDownNodeMenu checklistToggleMap={checklistToggleMap} nodeTimeDataValues={parsedData} value={value}/>
+              <DropDownNodeMenu
+                checklistToggleMap={checklistToggleMap}
+                nodeTimeDataValues={parsedData}
+                value={value}
+              />
             </Col>
             <Col xs={10} id="graph-area">
               <MasterChart
@@ -178,13 +182,8 @@ export default class DashboardPanel extends Component {
                 isStacked={isStacked}
                 onStackToggle={this.handleStackViewChange}
                 id="master-chart"
-              />    
+              />
             </Col>
-          </Row>
-          <Row>
-          <Col xs={10} id="nodes">
-        
-          </Col>
           </Row>
         </Grid>
       </div>

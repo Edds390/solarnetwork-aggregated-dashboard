@@ -12,7 +12,6 @@ import ListIcon from 'material-ui/svg-icons/action/list'
 import {black} from 'material-ui/styles/colors'
 import './MasterChart.css';
 
-import PanelSet from '../DataTable/PanelCards/PanelSet';
 
 const GRAPH_HEIGHT = 320;
 
