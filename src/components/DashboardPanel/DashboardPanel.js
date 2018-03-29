@@ -125,7 +125,14 @@ export default class DashboardPanel extends Component {
   }
 
   handleValueChange = (value) => {
-    this.setState({ value });
+    const {
+      finalData,
+      startDate,
+      endDate,
+      aggregate,
+    } = this.state;
+    const parsedData = DataParser(finalData, startDate, endDate, aggregate, value);
+    this.setState({ value, parsedData });
   }
 
   render() {
