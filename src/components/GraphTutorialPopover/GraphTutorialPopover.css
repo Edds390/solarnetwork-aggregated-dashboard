@@ -6,9 +6,10 @@
 
 .helpIcon {
   color: grey !important;
-
+  margin-top: -10px;
+  text-align: center;
 }
 
 .helpToolTip {
-  padding: 20px;
+  padding: 0px;
 }

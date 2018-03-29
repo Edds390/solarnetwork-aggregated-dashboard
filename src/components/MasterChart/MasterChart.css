@@ -3,26 +3,54 @@
   display: flex;
   flex-direction: column;
   height: 80%;
-  padding: 30px 0 20px 60px;
+  min-height: 600px;
+  padding: 0px 0px 20px 0px;
+}
+
+#help {
+  max-width: 40px;
+  padding: 5px;
+  float:right;
+  z-index: 1;
+  margin-right: 10px;
+}
+
+#legend {
+  min-width: 220px;
+  max-width: 220px;
+  float: right;
+  z-index: 1;
+  padding: 0px;
+  margin-top: -40px;
 }
 
 .dygraph-xlabel {
   background-color: transparent !important;
   font-size: 18px !important;
   text-align: center;
+  margin: 20px 10px 10px 10px;
 }
 
 .dygraph-ylabel {
   background-color: transparent !important;
   font-size: 18px !important;
   text-align: center !important;
+  margin-left: 50px;
+  margin-right: 95px;
 }
 .dygraph-legend {
   text-align: left !important;
+  min-height: 200px;
+}
+
+.dygraph-dimension {
+  width: 90%;
+  min-height: 600px;
+  margin: 50px 100px 10px 70px;
 }
 .highlight {
   text-decoration: underline !important;
-  font-weight: 550;
+  font-weight: 600;
 }
 
 .bottomBar {
@@ -31,4 +59,43 @@
   padding: 15px;
 }
 
+.panel-head {
+  background-color: #c8d86e;
+  color: white;
+  width: 100%;
+  max-height: 38px;
+}
+
+.legend-title {
+  text-decoration: none;
+}
+
+.legend-header {
+  height: 20px;
+  background-color: aliceblue;
+  width: 100%;
+}
+
+.legend-body {
+  padding: 12px;
+  overflow: scroll;
+  width: 100%;
+  min-height: 100px;
+}
+
+.show-grid {
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 45px;
+  width: 100%;
+}
+
+#grid-toggle {
+  margin-left: 43%;
+  width: 170px;
+}
+
+#dropdown-menu {
+  position: absolute;
+}
 

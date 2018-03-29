@@ -1,20 +1,63 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Toggle from 'material-ui/Toggle';
+import moment from 'moment';
 import DashboardLeftBar from '../DashboardLeftBar/DashboardLeftBar';
 import MasterChart from '../MasterChart/MasterChart';
 import getNodeUsageData from '../../api/api';
 import PanelSet from '../DataTable/PanelCards/PanelSet';
+import ValueNavigationList from '../ValueNavigationList/ValueNavigationList';
+import DropDownNodeMenu from '../DataTable/DropDownNodeMenu/DropDownNodeMenu';
+
 import './DashboardPanel.css';
- 
+
+const VALUES = [
+  'watts',
+  'current',
+  'voltage',
+  'frequency',
+  'realPower',
+  'watts_max',
+  'watts_min',
+  'current_max',
+  'current_min',
+  'powerFactor',
+  'voltage_max',
+  'voltage_min',
+  'phaseVoltage',
+  'apparentPower',
+  'frequency_max',
+  'frequency_min',
+  'reactivePower',
+  'realPower_max',
+  'realPower_min',
+  'powerFactor_max',
+  'powerFactor_min',
+  'phaseVoltage_max',
+  'phaseVoltage_min',
+  'apparentPower_max',
+  'apparentPower_min',
+  'reactivePower_max',
+  'reactivePower_min',
+  'effectivePowerFactor',
+  'effectivePowerFactor_max',
+  'effectivePowerFactor_min',
+  'wattHours',
+  'wattHoursReverse',
+  'phase',
+];
+const DATEFORMAT = 'YYYY-MM-DD';
+
 export default class DashboardPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
       dataModel: [],
-      startDate: '2018-03-19',
-      endDate: '2018-03-24',
+      startDate: moment(this.props.startDate).format(DATEFORMAT),
+      endDate: moment(this.props.endDate).format(DATEFORMAT),
       aggregate: 'Hour',
+      values: VALUES,
       value: 'voltage',
       checklistToggleMap: {
         'Node182 DB': true,
@@ -55,7 +98,11 @@ export default class DashboardPanel extends Component {
   handleStackViewChange = (isInputChecked) => {
     this.setState({ isStacked: isInputChecked });
   }
- 
+
+  handleValueChange = (value) => {
+    this.setState({ value });
+  }
+
   render() {
     const { selectedNodes } = this.props;
     const {
@@ -66,28 +113,47 @@ export default class DashboardPanel extends Component {
       value,
       checklistToggleMap,
       isStacked,
+      values,
     } = this.state;
     return (
-      <div>
       <div className="dashboardPanelWrapper">
-        <MasterChart
-          data={dataModel}
-          startDate={startDate}
-          endDate={endDate}
-          aggregate={aggregate}
-          value={value}
-          checklistToggleMap={checklistToggleMap}
-          isStacked={isStacked}
-          onStackToggle={this.handleStackViewChange}
-        />
-        </div>
-        
-        <PanelSet checklistToggleMap={checklistToggleMap} data={dataModel} />
-     
+        <Grid style={{ width: '100%' }}>
+          <Row>
+            <Col xs={2} id="value-nav">
+              <ValueNavigationList
+                listItems={values}
+                selectedItem={value}
+                onValueChange={this.handleValueChange}
+              />
+                <DropDownNodeMenu/>
+            </Col>
+            <Col xs={10} id="graph-area">
+              <MasterChart
+                data={dataModel}
+                startDate={startDate}
+                endDate={endDate}
+                aggregate={aggregate}
+                value={value}
+                checklistToggleMap={checklistToggleMap}
+                isStacked={isStacked}
+                onStackToggle={this.handleStackViewChange}
+                id="master-chart"
+              />    
+            </Col>
+          </Row>
+          <Row>
+          <Col xs={10} id="nodes">
+          <PanelSet checklistToggleMap={checklistToggleMap} data={dataModel} />
+          </Col>
+          </Row>
+        </Grid>
       </div>
     );
   }
 }
+
 DashboardPanel.propTypes = {
-  selectedNodes: PropTypes.object,
-};
+ selectedNodes: PropTypes.object,
+ startDate: PropTypes.instanceOf(Date),
+ endDate: PropTypes.instanceOf(Date)
+}

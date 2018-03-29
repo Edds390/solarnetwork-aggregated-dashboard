@@ -29,6 +29,14 @@
   margin: 15px;
 }
 
+.datepickerContainer {
+  display: flex;
+  margin:15px;
+}
+
+.datepicker {
+  margin-right: 10px;
+}
 .background {
   position: fixed;
   max-height: 70%;

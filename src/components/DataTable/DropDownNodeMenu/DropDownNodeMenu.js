@@ -2,6 +2,7 @@ import React from 'react';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import ExpandableCard from '../ExpandableCard/ExpandableCard';
+import Paper from 'material-ui/Paper';
 import './DropDownNodeMenu.css';
 
 /* Manual input at this stage representing dummy data to be parsed through for each card,
@@ -40,20 +41,17 @@ export default class DropDownNodeMenu extends React.Component {
   /* This renders the drop down menu with respect to the individual node cards which are formatted
  as an ExpandableCard component. There is one MenuItem or element as "Choose Node" because there
  isn't a place holder text option. If this is clicked on, it will close the drop down menu */
- render() {
- 
-  return (
-      <div>
-        <DropDownMenu
+  render() {
+    return (
+      <div className="nodeContainer">
+        <div className="info-title">Nodes</div>
+        <Paper
           value={this.state.value}
           onChange={this.handleChange}
           className="custom-width"
-          autoWidth={false}
-          maxHeight={150}
-        >
-          <MenuItem value={1} label="Choose Node" primaryText="Choose Node" />
+          autoWidth={false}>
           <ExpandableCard nodeMap={nodeMap} />
-        </DropDownMenu>
+        </Paper>
       </div>
     );
   }
