@@ -147,6 +147,7 @@ export default class DashboardPanel extends Component {
       checklistToggleMap,
       isStacked,
       values,
+      parsedData
     } = this.state;
     return (
       <div className="dashboardPanelWrapper">
@@ -164,7 +165,7 @@ export default class DashboardPanel extends Component {
                 selectedItem={value}
                 onValueChange={this.handleValueChange}
               />
-                <DropDownNodeMenu/>
+                <DropDownNodeMenu checklistToggleMap={checklistToggleMap}/>
             </Col>
             <Col xs={10} id="graph-area">
               <MasterChart
@@ -182,7 +183,7 @@ export default class DashboardPanel extends Component {
           </Row>
           <Row>
           <Col xs={10} id="nodes">
-          <PanelSet checklistToggleMap={checklistToggleMap} data={dataModel} />
+        
           </Col>
           </Row>
         </Grid>
