@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import PropTypes from 'prop-types';
+import './ExpandableCard.css';
 
 /* This component is for an individual card within the drop down menu for node information.
 It is expandable and collapsible depending on what state the user clicks on it. */
@@ -34,13 +35,13 @@ export default class ExpandableCard extends React.Component {
     if (Object.keys(nodeTimeDataValues).length === 0) { // Need to check if there is any data to process.
       nodeCards = chosenNodeArray.map(nodeId =>
         (
-          <Card>
+          <Card className="nodeInformationText">
             <CardHeader
               title={nodeId}
               actAsExpander
               showExpandableButton
             />
-            <CardText expandable>
+            <CardText expandable >
               <p>Click on a value</p>
             </CardText>
           </Card>
@@ -85,13 +86,13 @@ export default class ExpandableCard extends React.Component {
 
       nodeCards = chosenNodeArray.map((nodeId, i) =>
         (
-          <Card>
+          <Card >
             <CardHeader
               title={nodeId}
               actAsExpander
               showExpandableButton
             />
-            <CardText expandable>
+            <CardText expandable className="nodeInformationText">
               <p>Accumlated total {value}:  {sumArray[i].toFixed(2)}</p>
               <p>Maximum {value}: {maxArray[i].toFixed(2)}</p>
               <p>Average {value}: {averageArray[i].toFixed(2)}</p>

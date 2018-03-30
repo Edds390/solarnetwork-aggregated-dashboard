@@ -1,9 +1,7 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
-import MenuItem from 'material-ui/MenuItem';
-import ExpandableCard from '../ExpandableCard/ExpandableCard';
 import Paper from 'material-ui/Paper';
 import PropTypes from 'prop-types';
+import ExpandableCard from '../ExpandableCard/ExpandableCard';
 import './DropDownNodeMenu.css';
 
 
@@ -34,6 +32,7 @@ export default class DropDownNodeMenu extends React.Component {
           onChange={this.handleChange}
           className="custom-width"
           autoWidth={false}
+          
         >
           <ExpandableCard
             checklistToggleMap={checklistToggleMap}
