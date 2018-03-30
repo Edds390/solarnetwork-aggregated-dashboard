@@ -10,11 +10,13 @@ import './DashboardLeftBar.css';
 
 const styles = {
   listIcon: {
-    position: 'absolute',
+    boxShadow: '1px 1px 1px 1px #dedede',
+    color: '#f6c415',
+    position: 'fixed',
     bottom: '30px',
     left: '30px',
     zIndex: 1500,
-    backgroundColor: 'coral',
+    backgroundColor: '#c8d86e',
     borderRadius: '50px',
   },
 };
@@ -106,6 +108,7 @@ export default class DashboardLeftBar extends React.Component {
         <IconButton
           onClick={this.handleToggle}
           style={styles.listIcon}
+          id="drawer-button"
         >
           <List />
         </IconButton>
@@ -114,6 +117,7 @@ export default class DashboardLeftBar extends React.Component {
           open={this.state.open}
           onRequestChange={() => this.setState({ open })}
         >
+          <div className="info-title">Datasource filter</div>
           <Divider />
           <div>
             {
@@ -124,6 +128,7 @@ export default class DashboardLeftBar extends React.Component {
                       label={nodeString}
                       checked={this.checkNodeIdIsChecked(nodeString)}
                       onCheck={(event, isInputChecked) => this.updateCheckNode(isInputChecked, nodeString)}
+                      className="node-title"
                     />
                     <Divider />
                     {checklistRenderMap[nodeString].map(dataSource => (
@@ -138,7 +143,6 @@ export default class DashboardLeftBar extends React.Component {
                   ))
               }
           </div>
-
         </Drawer>
       </div>
     );
