@@ -10,7 +10,7 @@ import './DashboardLeftBar.css';
 
 const styles = {
   listIcon: {
-      boxShadow: '1px 1px 1px 1px #dedede',
+    boxShadow: '1px 1px 1px 1px #dedede',
     color: '#f6c415',
     position: 'fixed',
     bottom: '30px',
@@ -105,7 +105,6 @@ export default class DashboardLeftBar extends React.Component {
     });
     return (
       <div>
-
         <IconButton
           onClick={this.handleToggle}
           style={styles.listIcon}
