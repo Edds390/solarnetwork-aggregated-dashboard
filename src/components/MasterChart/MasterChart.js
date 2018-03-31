@@ -12,6 +12,7 @@ import ListIcon from 'material-ui/svg-icons/action/list'
 import {black} from 'material-ui/styles/colors'
 import './MasterChart.css';
 
+
 const GRAPH_HEIGHT = 320;
 
 /**
@@ -72,13 +73,15 @@ export default class MasterChart extends Component {
       aggregate,
       value,
       isStacked,
+    
     } = this.props;
     // cloneDeep used as placeholder as later the parsed data will be passed in as a prop
     const dataWrapper = _.cloneDeep(DataParser(data, startDate, endDate, aggregate, value));
+    
     const labels = ['Time'].concat(dataWrapper.labels);
 
     const filteredData = this.filterData(dataWrapper, labels);
-
+    
     const dygraph = new Dygraph(
       this.chartRef,
       filteredData,
@@ -155,6 +158,7 @@ export default class MasterChart extends Component {
           </Row>
         </Grid>
       </Paper>
+  
 
     );
   }
@@ -169,4 +173,5 @@ MasterChart.propTypes = {
   checklistToggleMap: PropTypes.object.isRequired, // for filtering data
   isStacked: PropTypes.bool.isRequired,
   onStackToggle: PropTypes.func.isRequired, // callback function for toggling stack view
+
 };
