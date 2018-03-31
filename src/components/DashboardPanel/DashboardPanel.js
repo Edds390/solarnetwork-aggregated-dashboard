@@ -91,7 +91,10 @@ export default class DashboardPanel extends Component {
     // Must return only a single array of data, for dygraph to paint, so concatenate results
     let finalData = [];
     resultList.forEach((rawData) => {
-      finalData = finalData.concat(rawData.data.results);
+      // Check results have returned properly - service returns false if error
+      if (rawData.success === true) {
+        finalData = finalData.concat(rawData.data.results);
+      }
     });
     // give an initial parse-through based on the first value then use it to
     // populate the toggle map. Initial parse-through is necessary to populate
