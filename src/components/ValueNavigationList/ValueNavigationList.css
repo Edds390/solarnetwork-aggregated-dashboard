@@ -1,0 +1,19 @@
+.valueBar {
+  background-color: aliceblue;
+}
+
+.valueContainer {
+  height: 400px;
+  width: 100%;
+  overflow: scroll !important;
+}
+
+.info-title {
+  text-align: center;
+  width: 100%;
+  min-height: 40px;
+  font-size: 20px;
+  background-color: #588897;
+  color: white;
+  padding-top: 4px;
+}

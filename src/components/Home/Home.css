@@ -1,0 +1,63 @@
+.home {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 40%;
+  left: calc(50vw - (70% / 2));
+  width: 70%;
+  padding: 40px;
+}
+
+.autocomplete {
+  display: flex;
+  height: 30px;
+  margin: 15px;
+}
+
+.searchButton {
+  margin-left: 1rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px;
+}
+
+.chip {
+  margin: 15px;
+}
+
+.datepickerContainer {
+  display: flex;
+  margin:15px;
+}
+
+.datepicker {
+  margin-right: 10px;
+}
+
+.background {
+  position: fixed;
+  max-height: 70%;
+  z-index: -1;
+  text-align: center;
+  width: 90%;
+  height: 90%;
+}
+
+#background1 {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 5%;
+}
+
+.warningText {
+  text-align: left;
+  margin-left: 15px;
+  padding-top: 10px;
+  font-family: Roboto, sans-serif;
+  font-size: 15px;
+  color: #f6c432;
+}

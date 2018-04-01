@@ -1,0 +1,12 @@
+.dataSourceContainer {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.node-title {
+  background-color: #f3f2ef !important;
+  padding-top: 4px;
+}
