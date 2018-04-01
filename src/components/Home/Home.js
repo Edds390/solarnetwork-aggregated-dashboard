@@ -129,7 +129,7 @@ export default class Home extends Component {
             {nodeChips}
           </div>
         </Paper>
-        <img class="background" id="background1" src={background}/>
+        <img className="background" id="background1" src={background} alt="background" />
       </div>
     );
   }
