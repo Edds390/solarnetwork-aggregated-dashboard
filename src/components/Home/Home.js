@@ -37,12 +37,22 @@ export default class Home extends Component {
       selectedNodes: new Set(),
       startDate: weekAgoDate,
       endDate: dateToday,
+      invalidProjectSelected: false,
     };
   }
 
   handleSearch = (selectedProject) => {
-    const selectedNodes = new Set(projectMap[selectedProject].nodeIds);
-    this.setState({ selectedNodes });
+    // if the selected project is a valid project
+    if (projectMap[selectedProject]) {
+      const selectedNodes = new Set(projectMap[selectedProject].nodeIds);
+      this.setState({
+        selectedNodes,
+        selectedProject,
+        invalidProjectSelected: false
+      });
+    } else {
+      this.setState({ invalidProjectSelected: true });
+    }
   }
 
   handleRequestDelete = (key) => {
@@ -60,7 +70,12 @@ export default class Home extends Component {
   }
 
   render() {
-    const { selectedNodes, startDate, endDate } = this.state;
+    const {
+      selectedNodes,
+      startDate,
+      endDate,
+      invalidProjectSelected
+    } = this.state;
     const projectNames = Object.keys(projectMap).map(projectName => projectName);
     const selectedNodesArray = Array.from(selectedNodes);
     let chipsIsEmpty = true;
@@ -100,6 +115,12 @@ export default class Home extends Component {
               </Link>
             }
           </div>
+          {
+            invalidProjectSelected &&
+            <div className="warningText">
+              Please select a valid project
+            </div>
+          }
           <div className="datepickerContainer">
             <DatePicker className="datepicker" hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
             <DatePicker className="datepicker" hintText="End Date" container="inline" value={this.state.endDate} onChange={this.handleEndDateChange} />
