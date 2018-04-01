@@ -81,17 +81,24 @@ export default class Home extends Component {
         <Paper className="home">
           <div className="autocomplete">
             <Autocomplete onSearch={this.handleSearch} suggestionList={projectNames} />
-            <Link to={{
-              pathname: "/dash",
-              state: { selectedNodes, startDate, endDate }
-            }}>
+            {chipsIsEmpty ?
               <RaisedButton
                 className="searchButton"
                 label="GO"
-                disabled={chipsIsEmpty}
+                disabled
                 primary
               />
-            </Link>
+            : <Link to={{
+                pathname: "/dash",
+                state: { selectedNodes, startDate, endDate }
+              }}>
+                <RaisedButton
+                  className="searchButton"
+                  label="GO"
+                  primary
+                />
+              </Link>
+            }
           </div>
           <div className="datepickerContainer">
             <DatePicker className="datepicker" hintText="Start Date" container="inline" value={this.state.startDate} onChange={this.handleStartDateChange} />
